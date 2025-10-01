@@ -1,50 +1,149 @@
 [
   {
+    "title": "A mixture learning strategy for predicting aquifer permeability coefficient K",
+    "authors": "Kouadio, K. L.; Liu, J.; Liu, W.; Liu, R.",
+    "venue": "Computers & Geosciences",
+    "year": 2025,
+    "doi": "10.1016/j.cageo.2024.105819",
+    "url": "https://doi.org/10.1016/j.cageo.2024.105819",
+    "tags": ["groundwater", "permeability", "machine learning"]
+  },
+  {
+    "title": "Multifaceted anomaly detection framework for leachate monitoring in landfills",
+    "authors": "Liu, R.; Jiang, S.; Ou, J.; Kouadio, K. L.*; Xiong, B.",
+    "venue": "Journal of Environmental Management",
+    "year": 2024,
+    "doi": "10.1016/j.jenvman.2024.122130",
+    "url": "https://doi.org/10.1016/j.jenvman.2024.122130",
+    "tags": ["anomaly detection", "landfill", "environmental monitoring", "AI"]
+  },
+  {
+    "title": "An Integrated Approach for sewage diversion: Case of Huayuan mine, Hunan Province, China",
+    "authors": "Kouadio, K. L.; Liu, J.; Liu, R.; Boukhalfa, Z.",
+    "venue": "Geophysics",
+    "year": 2024,
+    "doi": "10.1190/geo2023-0332.1",
+    "url": "https://doi.org/10.1190/geo2023-0332.1",
+    "tags": ["sewage", "hydrogeology", "geophysics", "case study"]
+  },
+  {
+    "title": "K-Means Featurizer: A Booster for Intricate Datasets",
+    "authors": "Kouadio, K. L.; Liu, J.; Liu, R.; Wang, Y.; Liu, W.",
+    "venue": "Earth Science Informatics",
+    "year": 2024,
+    "doi": "10.1007/s12145-024-01236-3",
+    "url": "https://doi.org/10.1007/s12145-024-01236-3",
+    "tags": ["feature engineering", "k-means", "machine learning"]
+  },
+  {
+    "title": "Ensemble Learning Paradigms for Flow-Rate Prediction Boosting",
+    "authors": "Kouadio, K. L.; Liu, J.; Kouamelan, S. K.; Liu, R.",
+    "venue": "Water Resources Management",
+    "year": 2023,
+    "doi": "10.1007/s11269-023-03562-5",
+    "url": "https://doi.org/10.1007/s11269-023-03562-5",
+    "tags": ["ensemble", "flow rate", "groundwater", "ML"]
+  },
+  {
     "title": "Machine learning-based techniques for land subsidence simulation in an urban area",
-    "authors": "Kouadio, Laurent; et al.",
+    "authors": "Liu, J.; Liu, W.; Allechy, F. B.; Zheng, Z.; Liu, R.; Kouadio, K. L.*",
     "venue": "Journal of Environmental Management",
     "year": 2024,
     "doi": "10.1016/j.jenvman.2024.120078",
     "url": "https://doi.org/10.1016/j.jenvman.2024.120078",
     "featured": true,
-    "tags": [
-      "subsidence",
-      "forecasting",
-      "uncertainty"
-    ]
+    "tags": ["subsidence", "forecasting", "uncertainty"]
+  },
+  {
+    "title": "watex: machine learning research in water exploration",
+    "authors": "Kouadio, K. L.; Liu, J.; Liu, R.",
+    "venue": "SoftwareX",
+    "year": 2023,
+    "doi": "10.1016/j.softx.2023.101367",
+    "url": "https://doi.org/10.1016/j.softx.2023.101367",
+    "tags": ["software", "groundwater", "machine learning"]
+  },
+  {
+    "title": "A novel approach for water reservoir mapping using controlled-source audio-frequency magnetotelluric in Xingning area, Hunan Province, China",
+    "authors": "Kouadio, K. L.; Liu, R.; Malory, A. O.; Liu, W.; Liu, C.",
+    "venue": "Geophysical Prospecting",
+    "year": 2023,
+    "doi": "10.1111/1365-2478.13385",
+    "url": "https://doi.org/10.1111/1365-2478.13385",
+    "tags": ["CSAMT", "groundwater", "mapping"]
+  },
+  {
+    "title": "pyCSAMT: An alternative Python toolbox for groundwater exploration using controlled-source audio-frequency magnetotelluric",
+    "authors": "Kouadio, K. L.; Liu, R.; Mi, B.; Liu, C.",
+    "venue": "Journal of Applied Geophysics",
+    "year": 2022,
+    "doi": "10.1016/j.jappgeo.2022.104647",
+    "url": "https://doi.org/10.1016/j.jappgeo.2022.104647",
+    "tags": ["software", "CSAMT", "groundwater"]
+  },
+  {
+    "title": "Groundwater Flow-Rate Prediction from Geo-Electrical Features using Support Vector Machines",
+    "authors": "Kouadio, K. L.; Loukou, N. K.; Coulibaly, D.; Mi, B.; Kouamelan, S. K.; Gnoleba, S. P. D.; Zhang, H.; Xia, J.",
+    "venue": "Water Resources Research",
+    "year": 2022,
+    "doi": "10.1029/2021WR031623",
+    "url": "https://doi.org/10.1029/2021WR031623",
+    "tags": ["SVM", "groundwater", "geo-electrical"]
+  },
+  {
+    "title": "A mixture learning strategy for predicting aquifers permeability coefficient k",
+    "authors": "Kouadio, K. L.; Liu, J.; Liu, R.",
+    "venue": "Engineering Geology (preprint)",
+    "year": 2023,
+    "doi": "10.2139/ssrn.4326365",
+    "url": "https://dx.doi.org/10.2139/ssrn.4326365",
+    "tags": ["preprint", "groundwater", "permeability", "ML"]
+  },
+  {
+    "title": "Two-dimensional inversion of CSAMT data and three-dimensional geological mapping for groundwater exploration in Tongkeng Area, Hunan Province, China",
+    "authors": "Kouadio, K. L.; Xu, Y.; Liu, C.; Boukhalfa, Z.",
+    "venue": "Journal of Applied Geophysics",
+    "year": 2020,
+    "doi": "10.1016/j.jappgeo.2020.104204",
+    "url": "https://doi.org/10.1016/j.jappgeo.2020.104204",
+    "tags": ["CSAMT", "inversion", "groundwater"]
+  },
+  {
+    "title": "Electromagnetic monitoring with local mesh for time-lapse monitoring of hydraulic fracturing",
+    "authors": "Zhang, Z.; Liu, J.; Guo, R.; Kouadio, K. L.; Zhan, S.; Li, A.; Liu, R.",
+    "venue": "Journal of Applied Geophysics",
+    "year": 2023,
+    "doi": "10.1016/j.jappgeo.2023.104995",
+    "url": "https://doi.org/10.1016/j.jappgeo.2023.104995",
+    "tags": ["electromagnetics", "hydraulic fracturing", "monitoring"]
+  },
+  {
+    "title": "A pitfall of applying one-bit normalization in passive surface-wave imaging from ultra-short roadside noise",
+    "authors": "Zhang, H.; Mi, B.; Liu, Y.; Xi, C.; Kouadio, K. L.",
+    "venue": "Journal of Applied Geophysics",
+    "year": 2021,
+    "doi": "10.1016/j.jappgeo.2021.104285",
+    "url": "https://doi.org/10.1016/j.jappgeo.2021.104285",
+    "tags": ["passive surface-wave", "signal processing"]
+  },
+  {
+    "title": "k-diagram: Technical Report — Derivations and Details",
+    "authors": "Kouadio, K. L.",
+    "venue": "Zenodo (Technical Report)",
+    "year": 2025,
+    "doi": "10.5281/zenodo.17051183",
+    "url": "https://doi.org/10.5281/zenodo.17051183",
+    "featured": true,
+    "tags": ["uncertainty", "visualization", "diagnostics"]
   },
   {
     "title": "XTFT: A Next-Generation Temporal Fusion Transformer for Uncertainty-Rich Time Series Forecasting",
-    "authors": "Kouadio, Laurent; et al.",
-    "venue": "Under review \u2014 IEEE TPAMI (TPAMI-2025-04-1034)",
+    "authors": "Kouadio, K. L.; Liu, Z.; Liu, R.; Bizimana, P. C.; Yang, G.; Liu, W.",
+    "venue": "Preprint — IEEE TPAMI submission",
     "year": 2025,
-    "arxiv": "",
+    "doi": "10.22541/au.175390529.91420978.v1",
+    "url": "https://doi.org/10.22541/au.175390529.91420978/v1",
     "featured": true,
-    "tags": [
-      "transformers",
-      "uncertainty",
-      "time series"
-    ]
-  },
-  {
-    "title": "Forecasting Urban Land Subsidence in the Era of Rapid Urbanization and Climate Stress",
-    "authors": "Kouadio, Laurent; et al.",
-    "venue": "Under review \u2014 Nature Communications",
-    "year": 2025,
-    "tags": [
-      "subsidence",
-      "physics-informed",
-      "XTFT"
-    ]
-  },
-  {
-    "title": "k-diagram: Polar Diagnostics for Forecast Uncertainty",
-    "authors": "Kouadio, Laurent; et al.",
-    "venue": "Journal of Open Source Software (submitted)",
-    "year": 2025,
-    "tags": [
-      "uncertainty",
-      "visualization"
-    ]
+    "tags": ["transformers", "uncertainty", "time series"]
   }
 ]
