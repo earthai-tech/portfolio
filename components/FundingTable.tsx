@@ -1,5 +1,8 @@
 "use client";
 
+import { useCurrency } from "@/components/CurrencyProvider";
+import { convertFromCNY, formatMoney } from "@/utils/currency";
+import { CurrencyToggle } from "@/components/CurrencyToggle";
 import { useMemo, useState } from "react";
 import data from "@/data/funding.json";
 
@@ -16,6 +19,7 @@ type Funding = {
   funder_id?: string;
   amount_cny?: number | null;
 };
+const { currency } = useCurrency();
 
 const fmtMoney = (n?: number | null) =>
   n == null ? "—" : new Intl.NumberFormat("en-US", { style: "currency", currency: "CNY", maximumFractionDigits: 0 }).format(n);
@@ -87,6 +91,10 @@ export default function FundingTable() {
           <span className="mr-3">Contracts: <strong>{fmtMoney(totals.contracts)}</strong></span>
           <span>Grants: <strong>{fmtMoney(totals.grants)}</strong></span>
         </div>
+        <div className="ml-auto flex items-center gap-3 text-sm text-gray-600 dark:text-gray-300">
+          <CurrencyToggle />
+          <span className="hidden sm:inline">Totals reflect current filter</span>
+        </div>
       </div>
 
       {/* Table */}
@@ -125,6 +133,9 @@ export default function FundingTable() {
                 <td className="p-3">
                   <div>{d.organization || "—"}</div>
                   {d.location && <div className="text-gray-600 dark:text-gray-400">{d.location}</div>}
+                </td>
+                <td className="p-3 text-right whitespace-nowrap">
+                  {formatMoney(d.amount_cny == null ? null : convertFromCNY(d.amount_cny, currency), currency)}
                 </td>
               </tr>
             ))}

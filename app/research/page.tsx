@@ -1,5 +1,6 @@
 import { PageHero } from "@/components/PageHero";
 import { Card } from "@/components/Card";
+import FundingHighlights from "@/components/FundingHighlights";
 
 export default function ResearchPage() {
   return (

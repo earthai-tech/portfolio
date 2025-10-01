@@ -3,6 +3,7 @@ import "./globals.css";
 import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
 import { SITE } from "@/utils/metadata";
+import { CurrencyProvider } from "@/components/CurrencyProvider";
 
 export const metadata: Metadata = {
   title: `${SITE.name} — ${SITE.title}`,
@@ -19,17 +20,15 @@ export const metadata: Metadata = {
   alternates: { canonical: "/" }
 };
 
-export default function RootLayout({
-  children,
-}: {
-  children: React.ReactNode;
-}) {
+export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="en">
       <body>
-        <Header />
-        <main className="container py-10">{children}</main>
-        <Footer />
+        <CurrencyProvider>
+          <Header />
+          <main className="container py-10">{children}</main>
+          <Footer />
+        </CurrencyProvider>
       </body>
     </html>
   );
