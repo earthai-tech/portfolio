@@ -1,6 +1,6 @@
 import { PageHero } from "@/components/PageHero";
 import { Card } from "@/components/Card";
-import { SocialLinks } from "@/components/SocialLinks";
+import { SocialLinks } from "@/components/SocialLinks";        
 import Link from "next/link";
 import Image from "next/image";
 
@@ -27,6 +27,7 @@ export default function HomePage() {
         }
       >
         <div className="flex flex-wrap gap-3">
+          <Link href="/about" className="badge">About</Link>
           <Link href="/software" className="badge">Software</Link>
           <Link href="/publications" className="badge">Publications</Link>
           <Link href="/research" className="badge">Research</Link>
@@ -35,7 +36,7 @@ export default function HomePage() {
         </div>
         <SocialLinks className="mt-4" />
       </PageHero>
-
+      
       <section>
         <h2 className="text-xl font-semibold mb-4">Highlights</h2>
         <div className="grid md:grid-cols-3 gap-6">
