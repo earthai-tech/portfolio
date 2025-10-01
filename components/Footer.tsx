@@ -22,6 +22,8 @@ export function Footer() {
             <Link href={SITE.orcid} target="_blank">ORCID</Link>
             <span>·</span>
             <Link href={SITE.linkedin} target="_blank">LinkedIn</Link>
+            <span>·</span>
+            <Link href={SITE.researchgate} target="_blank">ResearchGate</Link>
           </div>
           <div className="text-xs text-gray-400">
             © {new Date().getFullYear()} {SITE.name}. All rights reserved.
@@ -31,3 +33,5 @@ export function Footer() {
     </footer>
   );
 }
+
+
