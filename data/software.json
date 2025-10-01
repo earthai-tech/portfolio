@@ -1,0 +1,36 @@
+[
+  {
+    "name": "FusionLab-learn / XTFT",
+    "description": "Temporal Fusion Transformer variants for calibrated, uncertainty\u2011aware forecasting with physics\u2011aware hooks.",
+    "links": [
+      {
+        "label": "GitHub",
+        "href": "https://github.com/earthai-tech/fusionlab-learn"
+      }
+    ]
+  },
+  {
+    "name": "k-diagram",
+    "description": "Polar diagnostics package for forecast uncertainty (coverage, calibration, severity).",
+    "links": [
+      {
+        "label": "GitHub",
+        "href": "https://github.com/earthai-tech/k-diagram"
+      },
+      {
+        "label": "Docs",
+        "href": "https://k-diagram.readthedocs.io/en/latest/"
+      }
+    ]
+  },
+  {
+    "name": "pyCSAMT",
+    "description": "Open electromagnetic toolbox for AFMT/CSAMT processing and visualization.",
+    "links": [
+      {
+        "label": "GitHub",
+        "href": "https://github.com/WEgeophysics/pyCSAMT"
+      }
+    ]
+  }
+]

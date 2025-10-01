@@ -1,0 +1,50 @@
+[
+  {
+    "title": "Machine learning-based techniques for land subsidence simulation in an urban area",
+    "authors": "Kouadio, Laurent; et al.",
+    "venue": "Journal of Environmental Management",
+    "year": 2024,
+    "doi": "10.1016/j.jenvman.2024.120078",
+    "url": "https://doi.org/10.1016/j.jenvman.2024.120078",
+    "featured": true,
+    "tags": [
+      "subsidence",
+      "forecasting",
+      "uncertainty"
+    ]
+  },
+  {
+    "title": "XTFT: A Next-Generation Temporal Fusion Transformer for Uncertainty-Rich Time Series Forecasting",
+    "authors": "Kouadio, Laurent; et al.",
+    "venue": "Under review \u2014 IEEE TPAMI (TPAMI-2025-04-1034)",
+    "year": 2025,
+    "arxiv": "",
+    "featured": true,
+    "tags": [
+      "transformers",
+      "uncertainty",
+      "time series"
+    ]
+  },
+  {
+    "title": "Forecasting Urban Land Subsidence in the Era of Rapid Urbanization and Climate Stress",
+    "authors": "Kouadio, Laurent; et al.",
+    "venue": "Under review \u2014 Nature Communications",
+    "year": 2025,
+    "tags": [
+      "subsidence",
+      "physics-informed",
+      "XTFT"
+    ]
+  },
+  {
+    "title": "k-diagram: Polar Diagnostics for Forecast Uncertainty",
+    "authors": "Kouadio, Laurent; et al.",
+    "venue": "Journal of Open Source Software (submitted)",
+    "year": 2025,
+    "tags": [
+      "uncertainty",
+      "visualization"
+    ]
+  }
+]
