@@ -1,10 +1,11 @@
 "use client";
 
-import { useCurrency } from "@/components/CurrencyProvider";
-import { convertFromCNY, formatMoney } from "@/utils/currency";
-import { CurrencyToggle } from "@/components/CurrencyToggle";
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import data from "@/data/funding.json";
+import { useCurrency } from "@/components/CurrencyProvider";
+import { CurrencyToggle } from "@/components/CurrencyToggle";
+import { convertFromCNY, formatMoney } from "@/utils/currency";
+import Pagination from "@/components/Pagination";
 
 type Funding = {
   title: string;
@@ -19,15 +20,16 @@ type Funding = {
   funder_id?: string;
   amount_cny?: number | null;
 };
-const { currency } = useCurrency();
 
-const fmtMoney = (n?: number | null) =>
-  n == null ? "—" : new Intl.NumberFormat("en-US", { style: "currency", currency: "CNY", maximumFractionDigits: 0 }).format(n);
+const PAGE_SIZE = 8; // how many rows per page
 
 export default function FundingTable() {
+  const { currency } = useCurrency();
+
   const [q, setQ] = useState("");
   const [type, setType] = useState<"All" | "Contract" | "Grant">("All");
   const [year, setYear] = useState<"All" | number>("All");
+  const [page, setPage] = useState(1);
 
   const items = data as Funding[];
 
@@ -40,24 +42,44 @@ export default function FundingTable() {
     return Array.from(ys).sort((a, b) => b - a);
   }, [items]);
 
-  const filtered = items.filter((d) => {
-    const text = [
-      d.title, d.type, d.subtype, d.program, d.organization, d.location, d.grant_number
-    ].filter(Boolean).join(" ").toLowerCase();
+  const filtered = useMemo(() => {
+    return items.filter((d) => {
+      const text = [
+        d.title, d.type, d.subtype, d.program, d.organization, d.location, d.grant_number
+      ].filter(Boolean).join(" ").toLowerCase();
+      const matchQ = q.trim().length === 0 || text.includes(q.toLowerCase());
+      const matchType = type === "All" || d.type === type;
+      const matchYear = year === "All" || d.period_start.startsWith(String(year));
+      return matchQ && matchType && matchYear;
+    });
+  }, [items, q, type, year]);
 
-    const matchQ = q.trim().length === 0 || text.includes(q.toLowerCase());
-    const matchType = type === "All" || d.type === type;
-    const matchYear = year === "All" || d.period_start.startsWith(String(year));
-    return matchQ && matchType && matchYear;
-  });
+  // Reset to page 1 whenever filters change
+  useEffect(() => { setPage(1); }, [q, type, year]);
 
+  // Totals computed over the filtered set (not per page)
   const totals = useMemo(() => {
-    const sum = (arr: Funding[]) => arr.reduce((acc, x) => acc + (x.amount_cny || 0), 0);
-    const all = sum(filtered);
-    const contracts = sum(filtered.filter((x) => x.type === "Contract"));
-    const grants = sum(filtered.filter((x) => x.type === "Grant"));
-    return { all, contracts, grants };
-  }, [filtered]);
+    const sumCNY = (arr: Funding[]) => arr.reduce((acc, x) => acc + (x.amount_cny || 0), 0);
+    const allCny = sumCNY(filtered);
+    const contractsCny = sumCNY(filtered.filter((x) => x.type === "Contract"));
+    const grantsCny = sumCNY(filtered.filter((x) => x.type === "Grant"));
+    return {
+      all: formatMoney(convertFromCNY(allCny, currency), currency),
+      contracts: formatMoney(convertFromCNY(contractsCny, currency), currency),
+      grants: formatMoney(convertFromCNY(grantsCny, currency), currency),
+    };
+  }, [filtered, currency]);
+
+  // Pagination
+  const totalPages = Math.max(1, Math.ceil(filtered.length / PAGE_SIZE));
+  const startIdx = (page - 1) * PAGE_SIZE;
+  const rows = filtered.slice(startIdx, startIdx + PAGE_SIZE);
+  const rangeFrom = filtered.length ? startIdx + 1 : 0;
+  const rangeTo = Math.min(startIdx + PAGE_SIZE, filtered.length);
+
+  const amountHeader = `Amount (${currency})`;
+  const renderAmount = (cny?: number | null) =>
+    formatMoney(cny == null ? null : convertFromCNY(cny, currency), currency);
 
   return (
     <div className="space-y-4">
@@ -72,7 +94,7 @@ export default function FundingTable() {
         <select
           className="border rounded-lg px-3 py-2 text-sm"
           value={type}
-          onChange={(e) => setType(e.target.value as any)}
+          onChange={(e) => setType(e.target.value as "All" | "Contract" | "Grant")}
         >
           <option>All</option>
           <option>Contract</option>
@@ -86,14 +108,17 @@ export default function FundingTable() {
           <option>All</option>
           {years.map((y) => <option key={y} value={y}>{y}</option>)}
         </select>
-        <div className="ml-auto text-sm text-gray-600 dark:text-gray-300">
-          <span className="mr-3">Total (filtered): <strong>{fmtMoney(totals.all)}</strong></span>
-          <span className="mr-3">Contracts: <strong>{fmtMoney(totals.contracts)}</strong></span>
-          <span>Grants: <strong>{fmtMoney(totals.grants)}</strong></span>
-        </div>
-        <div className="ml-auto flex items-center gap-3 text-sm text-gray-600 dark:text-gray-300">
+
+        {/* Right-aligned: currency toggle + totals + showing range */}
+        <div className="ml-auto flex flex-wrap items-center gap-3 text-sm text-gray-600 dark:text-gray-300">
           <CurrencyToggle />
-          <span className="hidden sm:inline">Totals reflect current filter</span>
+          <span>Total: <strong>{totals.all}</strong></span>
+          <span>Contracts: <strong>{totals.contracts}</strong></span>
+          <span>Grants: <strong>{totals.grants}</strong></span>
+          <span className="opacity-70">|</span>
+          <span>
+            Showing <strong>{rangeFrom}-{rangeTo}</strong> of <strong>{filtered.length}</strong>
+          </span>
         </div>
       </div>
 
@@ -106,13 +131,13 @@ export default function FundingTable() {
               <th className="text-left p-3">Period</th>
               <th className="text-left p-3">Type</th>
               <th className="text-left p-3">Grant No.</th>
-              <th className="text-right p-3">Amount (CNY)</th>
+              <th className="text-right p-3">{amountHeader}</th>
               <th className="text-left p-3">Location</th>
             </tr>
           </thead>
           <tbody>
-            {filtered.map((d, i) => (
-              <tr key={i} className="border-t dark:border-gray-800 align-top">
+            {rows.map((d, i) => (
+              <tr key={`${d.grant_number ?? d.title}-${i}`} className="border-t dark:border-gray-800 align-top">
                 <td className="p-3">
                   <div className="font-medium">{d.title}</div>
                   {d.program && <div className="text-gray-600 dark:text-gray-400">{d.program}</div>}
@@ -121,31 +146,37 @@ export default function FundingTable() {
                 <td className="p-3 whitespace-nowrap">
                   {d.period_start} → {d.period_end}
                 </td>
-                <td className="p-3 whitespace-nowrap">
-                  {d.type}
-                </td>
-                <td className="p-3 whitespace-nowrap">
-                  {d.grant_number || "—"}
-                </td>
-                <td className="p-3 text-right whitespace-nowrap">
-                  {fmtMoney(d.amount_cny)}
-                </td>
+                <td className="p-3 whitespace-nowrap">{d.type}</td>
+                <td className="p-3 whitespace-nowrap">{d.grant_number || "—"}</td>
+                <td className="p-3 text-right whitespace-nowrap">{renderAmount(d.amount_cny)}</td>
                 <td className="p-3">
                   <div>{d.organization || "—"}</div>
                   {d.location && <div className="text-gray-600 dark:text-gray-400">{d.location}</div>}
                 </td>
-                <td className="p-3 text-right whitespace-nowrap">
-                  {formatMoney(d.amount_cny == null ? null : convertFromCNY(d.amount_cny, currency), currency)}
-                </td>
               </tr>
             ))}
+            {rows.length === 0 && (
+              <tr>
+                <td colSpan={6} className="p-6 text-center text-gray-500">
+                  No results match your filters.
+                </td>
+              </tr>
+            )}
           </tbody>
         </table>
       </div>
 
+      {/* Pagination controls */}
+      <Pagination
+        className="justify-center"
+        page={page}
+        totalPages={totalPages}
+        onPageChange={setPage}
+      />
+
       {/* Note */}
       <p className="text-xs text-gray-500">
-        Amounts shown are contracted/granted totals in CNY; some projects may not disclose amounts.
+        Amounts shown in your selected currency; some projects may not disclose amounts.
       </p>
     </div>
   );
