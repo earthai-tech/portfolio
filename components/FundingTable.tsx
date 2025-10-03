@@ -10,7 +10,24 @@ import Pagination from "@/components/Pagination";
 import { Card } from "@/components/Card";
 import { Building, Award } from "lucide-react";
 
-type Funding = typeof data[0];
+// type Funding = typeof data[0];
+type Funding = {
+  title: string;
+  period_start: string;
+  period_end: string;
+  type: "Contract" | "Grant"; // This is the specific fix
+  subtype: string;
+  program: string;
+  organization: string;
+  location: string;
+  grant_number: string;
+  funder_id?: string; // Marked as optional
+  amount_cny: number;
+  added: string;
+  modified: string;
+  source: string;
+};
+
 const PAGE_SIZE = 8;
 
 export default function FundingTable() {
