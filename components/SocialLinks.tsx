@@ -50,7 +50,7 @@ const IconResearchGate = ({ className = "h-5 w-5" }: { className?: string }) => 
 
 // --- The Main SocialLinks Component ---
 
-export function SocialLinks() {
+export function SocialLinks({ className = "" }: { className?: string }) {
   const links = [
     {
       href: SITE.scholar, //
@@ -75,7 +75,7 @@ export function SocialLinks() {
   ];
 
   return (
-    <div className="flex flex-wrap items-center gap-x-6 gap-y-3">
+    <div className={`flex flex-wrap items-center gap-x-6 gap-y-3 ${className}`}>
       {links.map(({ href, label, Icon }) => (
         <a
           key={href}
