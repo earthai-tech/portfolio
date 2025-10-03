@@ -68,11 +68,11 @@ export default function SoftwareList({ allSoftware, availableLogos }: SoftwareLi
   );
 }
 
-// --- Reusable Software Card Component ---
+// --- Software Card Component ---
 const getItemKey = (name: string) => name.toLowerCase().split(" ")[0].replace(/[/—]/g, "");
 
 function SoftwareCard({ item, availableLogos }: { item: Item, availableLogos: string[] }) {
-  // [DYNAMIC LOGIC] Find the logo dynamically
+  // Find the logo dynamically
   const itemKey = getItemKey(item.name);
   const logoFileName = availableLogos.find(
     (fileName) => fileName.startsWith(itemKey)
@@ -90,7 +90,7 @@ function SoftwareCard({ item, availableLogos }: { item: Item, availableLogos: st
               width={56}
               height={56}
               className="dark:invert"
-              unoptimized // Recommended for SVGs if they don't need optimization
+              unoptimized //  for SVGs 
             />
           </div>
         )}
