@@ -38,9 +38,8 @@ const memberships = [
   { name: 'Intl. Association for Mathematical Geosciences (IAMG)', url: 'https://www.iamg.org', key: 'iamg' },
   { name: 'Association for the Advancement of AI (AAAI)', url: 'https://www.aaai.org', key: 'aaai' }
 ];
-// [NEW] Data for the timeline, now including URLs and logo keys
 const timelineData = [
-    {
+  {
     icon: School,
     title: "Faculty Researcher | Lecturer in AI in Geophysics",
     subtitle: "Central South University (2024 – Present)",
@@ -61,7 +60,7 @@ const timelineData = [
       </p>
     )
   },
-    {
+  {
     icon: Briefcase,
     title: "Postdoctoral Fellow",
     subtitle: "Central South University (2022 – 2024)",
@@ -101,11 +100,12 @@ export default function AboutPage() {
         <SocialLinks className="mt-4" />
       </PageHero>
 
-      <Card className="hover:shadow-sm hover:translate-y-0">
-        <div className="flex items-center gap-4">
-          <Sparkles className="h-8 w-8 text-amber-500" />
-          <h2 className="text-2xl font-bold">My Journey in a Nutshell</h2>
-        </div>
+      {/* --- [FIXED] This Card component now has the required `title` prop --- */}
+      <Card
+        title="My Journey in a Nutshell"
+        icon={<Sparkles className="h-6 w-6 text-amber-500" />}
+        className="hover:shadow-sm hover:translate-y-0"
+      >
         <div className="prose prose-lg dark:prose-invert mt-4 max-w-none">
           <p>
             As a Lecturer in "AI in Geophysics" and a developer of cutting-edge tools, my passion lies at the crossroads of computer science and Earth science. My research, which began during my Ph.D. at <a href="https://www.zju.edu.cn/english/" target="_blank" rel="noopener noreferrer">Zhejiang University</a>, is centered on a single mission: to build intelligent systems that solve real-world geophysical challenges.
@@ -122,7 +122,6 @@ export default function AboutPage() {
       <section>
         <h2 className="text-2xl font-bold text-center mb-8">Career Path</h2>
         <div className="space-y-8">
-          {/* [MODIFIED] Mapped over data array to render items in descending order */}
           {timelineData.map((item, index) => (
             <TimelineItem
               key={item.title}
@@ -138,11 +137,24 @@ export default function AboutPage() {
       <section>
          <h2 className="text-2xl font-bold text-center mb-8">Affiliations & Memberships</h2>
          <div className="grid md:grid-cols-2 gap-8">
-            <div>
-              <h3 className="text-lg font-semibold flex items-center gap-2"><Building className="h-5 w-5 text-brand" /> Current Affiliations</h3>
-              <div className="mt-4 space-y-2">
-                {/* [FIX] Pass props explicitly to resolve React key warning */}
-                {affiliations.map(item => (
+           <div>
+             <h3 className="text-lg font-semibold flex items-center gap-2"><Building className="h-5 w-5 text-brand" /> Current Affiliations</h3>
+             <div className="mt-4 space-y-2">
+               {affiliations.map(item => (
+                 <AffiliationLink
+                   key={item.key}
+                   itemKey={item.key}
+                   name={item.name}
+                   url={item.url}
+                   availableLogos={availableLogos}
+                 />
+               ))}
+             </div>
+           </div>
+           <div>
+             <h3 className="text-lg font-semibold flex items-center gap-2"><Sparkles className="h-5 w-5 text-brand" /> Professional Memberships</h3>
+             <div className="mt-4 space-y-2">
+               {memberships.map(item => (
                   <AffiliationLink
                     key={item.key}
                     itemKey={item.key}
@@ -150,23 +162,9 @@ export default function AboutPage() {
                     url={item.url}
                     availableLogos={availableLogos}
                   />
-                ))}
-              </div>
-            </div>
-             <div>
-              <h3 className="text-lg font-semibold flex items-center gap-2"><Sparkles className="h-5 w-5 text-brand" /> Professional Memberships</h3>
-              <div className="mt-4 space-y-2">
-                {memberships.map(item => (
-                   <AffiliationLink
-                     key={item.key}
-                     itemKey={item.key}
-                     name={item.name}
-                     url={item.url}
-                     availableLogos={availableLogos}
-                   />
-                ))}
-              </div>
-            </div>
+               ))}
+             </div>
+           </div>
          </div>
       </section>
     </div>
@@ -174,25 +172,18 @@ export default function AboutPage() {
 }
 
 // --- Helper Components ---
-
-function ExpertiseCard({ icon: Icon, title }: { icon: React.ElementType, title: string }) { /* ... */ }
-
-// [FIX & IMPROVEMENT] Rebuilt TimelineItem for robustness and to include logos
 function TimelineItem({ icon: Icon, title, subtitle, text, children, url, logoKey, availableLogos, isLast = false }: any) {
   const logoFile = availableLogos.find((file: string) => file.startsWith(logoKey + '.'));
   const logoSrc = logoFile ? `/images/logos/${logoFile}` : null;
 
   return (
     <div className="relative pl-16">
-      {/* Icon and vertical line */}
       <div className="absolute left-0 top-0 flex h-full flex-col items-center">
         <div className="flex h-12 w-12 flex-shrink-0 items-center justify-center rounded-full bg-brand-muted dark:bg-gray-800">
           <Icon className="h-6 w-6 text-brand" />
         </div>
         {!isLast && <div className="mt-2 w-0.5 flex-grow bg-gray-200 dark:bg-gray-800" />}
       </div>
-
-      {/* Content */}
       <div className="flex items-start justify-between gap-4">
         <div className="flex-grow">
           <h3 className="text-lg font-bold">{title}</h3>
