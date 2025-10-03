@@ -74,9 +74,10 @@ export default function ContactPage() {
                   placeholder="Your message here..."
                 />
               </div>
+              {/* Updated the button with the gradient background */}
               <button
                 type="submit"
-                className="inline-flex items-center justify-center gap-2 rounded-lg bg-brand px-6 py-3 font-semibold text-white shadow-sm transition-colors hover:bg-brand/90 focus:ring-4 focus:ring-brand/50"
+                className="inline-flex items-center justify-center gap-2 rounded-lg bg-gradient-to-r from-brand to-rose-500 px-6 py-3 font-semibold text-white shadow-sm transition-opacity hover:opacity-90 focus:ring-4 focus:ring-brand/50"
               >
                 <Send className="w-4 h-4" />
                 Send Message

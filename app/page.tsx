@@ -88,7 +88,7 @@ export default function HomePage() {
       {/* --- Research Activity Section --- */}
       <section>
         <CollapsibleSection
-          // [REVISED] The title now includes the dynamic hover text for a cleaner layout
+          // The title now includes the dynamic hover text for a cleaner layout
           title={
             <div className="w-full flex items-center justify-between">
               <h2 className="flex items-center text-2xl font-bold">
@@ -105,9 +105,9 @@ export default function HomePage() {
             </div>
           }
         >
-          <Card className="hover:shadow-sm hover:translate-y-0 hover:border-gray-100 dark:hover:border-gray-800">
+          <div className="card hover:shadow-sm hover:translate-y-0 hover:border-gray-100 dark:hover:border-gray-800">
             <ResearchActivityChart variant="full" startYear={2020} setHoveredPoint={setHoveredPoint} />
-          </Card>
+          </div>
         </CollapsibleSection>
       </section>
 

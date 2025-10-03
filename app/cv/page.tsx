@@ -81,9 +81,15 @@ export default function CVPage() {
   );
 }
 
-// --- Redesigned Document Card ---
 function DocumentCard({ docKey, title, href, stats, onEvent, color }: any) {
   const icon = docKey === 'cv' ? <FileText className="h-6 w-6 text-gray-400"/> : <FolderKanban className="h-6 w-6 text-gray-400"/>;
+
+  // [NEW] Add logic to determine button classes
+  // If the color is 'brand', use the gradient. Otherwise, use the solid color.
+  const isBrand = color === 'brand';
+  const buttonClasses = isBrand
+    ? "bg-gradient-to-r from-brand to-rose-500 hover:opacity-90 transition-opacity"
+    : `bg-${color} hover:bg-${color}/90 transition-colors`;
 
   return (
     <Card
@@ -105,7 +111,8 @@ function DocumentCard({ docKey, title, href, stats, onEvent, color }: any) {
         <a href={href} target="_blank" rel="noreferrer" onClick={onEvent(docKey, "view")} className="inline-flex items-center justify-center gap-2 rounded-lg bg-gray-100 px-4 py-2 font-semibold text-gray-800 transition-colors hover:bg-gray-200 dark:bg-gray-800 dark:text-gray-200 dark:hover:bg-gray-700 flex-1">
           <Eye className="w-4 h-4" /> View
         </a>
-        <a href={href} download onClick={onEvent(docKey, "download")} className={`inline-flex items-center justify-center gap-2 rounded-lg px-4 py-2 font-semibold text-white shadow-sm transition-colors bg-${color} hover:bg-${color}/90 flex-1`}>
+        {/* [MODIFIED] Applied the new conditional button classes */}
+        <a href={href} download onClick={onEvent(docKey, "download")} className={`inline-flex items-center justify-center gap-2 rounded-lg px-4 py-2 font-semibold text-white shadow-sm flex-1 ${buttonClasses}`}>
           <Download className="w-4 h-4" /> Download
         </a>
       </div>
