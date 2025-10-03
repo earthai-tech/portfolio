@@ -101,7 +101,7 @@ export default function AboutPage() {
         <SocialLinks className="mt-4" />
       </PageHero>
 
-      <Card>
+      <Card className="hover:shadow-sm hover:translate-y-0">
         <div className="flex items-center gap-4">
           <Sparkles className="h-8 w-8 text-amber-500" />
           <h2 className="text-2xl font-bold">My Journey in a Nutshell</h2>

@@ -119,7 +119,7 @@ export default function PublicationList() {
     <div className="space-y-12">
       <PublicationDashboard allPubs={allPubs} />
       
-      <Card>
+      <Card className="hover:shadow-sm hover:translate-y-0 hover:border-gray-100 dark:hover:border-gray-800">
         <div className="mb-4 flex items-center gap-3">
           <Filter className="h-5 w-5 text-gray-500" />
           <h2 className="text-lg font-semibold">Filter & Sort</h2>

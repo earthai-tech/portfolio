@@ -164,3 +164,14 @@ details > summary::-webkit-details-marker { display: none; }
   @apply bg-brand-muted font-semibold text-brand-dark
          dark:bg-gray-800 dark:text-brand;
 }
+
+/* --- globals.css --- */
+
+.card {
+  @apply rounded-2xl shadow-sm border p-6
+         bg-white border-gray-100
+         dark:bg-gray-900 dark:border-gray-800
+         /* --- ADD THESE LINES --- */
+         transition-all duration-200 ease-in-out
+         hover:shadow-lg hover:-translate-y-1 hover:border-brand/30;
+}

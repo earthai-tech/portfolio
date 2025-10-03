@@ -80,7 +80,7 @@ export default function TalksPage() {
 
       {/* --- Detailed List --- */}
       <section>
-        <Card>
+        <Card className="hover:shadow-sm hover:translate-y-0 hover:border-gray-100 dark:hover:border-gray-800">
           <div className="flex flex-wrap items-center gap-4">
             <input
               className="flex-grow rounded-lg border bg-transparent px-3 py-2 text-sm md:flex-grow-0 md:w-72"
@@ -188,7 +188,7 @@ function TalksSummaryChart({ talks }: { talks: Talk[] }) {
   let accumulatedPct = 0;
 
   return (
-    <Card className="flex items-center gap-6">
+    <Card className="flex items-center gap-6 hover:shadow-sm hover:translate-y-0 hover:border-gray-100 dark:hover:border-gray-800">
       <div className="relative h-40 w-40">
         <svg viewBox="0 0 36 36" className="transform -rotate-90">
           {summary.map(({ type, pct }) => {

@@ -6,7 +6,7 @@ import pubsData from "@/data/publications.json";
 import talksData from "@/data/talks.json";
 import fundingData from "@/data/funding.json";
 import { convertFromCNY } from "@/utils/currency";
-import { useCurrency } from "@/components/CurrencyProvider"; // [NEW] Import the currency hook
+import { useCurrency } from "@/components/CurrencyProvider"; 
 import type { Currency } from "@/utils/currency";
 
 // --- Type Definitions ---

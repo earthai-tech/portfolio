@@ -28,7 +28,7 @@ export default function PublicationDashboard({ allPubs }: { allPubs: Pub[] }) {
   return (
     <section className="grid md:grid-cols-3 gap-6">
       <div className="md:col-span-2">
-        <Card>
+        <Card className="hover:shadow-sm hover:translate-y-0 hover:border-gray-100 dark:hover:border-gray-800">
           <h2 className="text-lg font-bold mb-4">Publications Per Year</h2>
           <PubsByYearChart allPubs={allPubs} />
         </Card>

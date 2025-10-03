@@ -23,9 +23,9 @@ export default function StatsStrip() {
   const totalMoney = formatMoney(convertFromCNY(totalCNY, currency, usdPerCnyRate), currency);
 
   const stat = (label: string, value: string) => (
-    <div className="card text-center">
+    <div className="card text-center bg-gray-50/50 dark:bg-gray-900/50">
       <div className="text-3xl font-semibold tracking-tight">{value}</div>
-      <div className="text-xs text-gray-500 mt-1">{label}</div>
+      <div className="text-sm text-gray-600 dark:text-gray-400 mt-1">{label}</div>
     </div>
   );
 

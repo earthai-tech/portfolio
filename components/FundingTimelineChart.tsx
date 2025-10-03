@@ -46,7 +46,7 @@ export default function FundingTimelineChart() {
   const y = (i: number) => P.t + i * (barH + barGap);
 
   return (
-    <Card>
+    <Card className="hover:shadow-sm hover:translate-y-0 hover:border-gray-100 dark:hover:border-gray-800">
       <div className="flex justify-between items-start mb-4 min-h-[40px]">
         <h2 className="text-lg font-bold">Funding Timeline</h2>
         {hovered && (

@@ -23,7 +23,7 @@ export default function ContactPage() {
         subtitle="I'm always open to discussing new research projects, collaborations, and opportunities. Please feel free to reach out using the form below."
       />
 
-      <Card>
+      <Card className="hover:shadow-sm hover:translate-y-0">
         <div className="grid grid-cols-1 md:grid-cols-3 gap-12">
           {/* --- Left Column: Contact Points --- */}
           <div className="space-y-8">

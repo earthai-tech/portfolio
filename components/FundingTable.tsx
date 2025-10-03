@@ -80,7 +80,7 @@ export default function FundingTable() {
           Use the filters below to search the complete list of grants and contracts.
         </p>
       </div>
-      <Card>
+      <Card className="hover:shadow-sm hover:translate-y-0 hover:border-gray-100 dark:hover:border-gray-800">
         <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
           <input
             className="md:col-span-2 w-full rounded-lg border bg-transparent px-3 py-2 text-sm focus:border-brand"

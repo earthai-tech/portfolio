@@ -19,7 +19,7 @@ export function Footer() {
     { href: SITE.researchgate, icon: SiResearchgate, label: "ResearchGate" },
   ];
 
-  // [MODIFIED] A curated list of the 6 most important navigation links for the footer
+  // A curated list of the 6 most important navigation links for the footer
   const footerNav = [
     { href: "/research", label: "Research" },
     { href: "/publications", label: "Publications" },
@@ -29,12 +29,13 @@ export function Footer() {
     { href: "/contact", label: "Contact" },
   ];
 
-  // [MODIFIED] Split the curated list into two columns of three
+  // Split the curated list into two columns of three
   const navCol1 = footerNav.slice(0, 3);
   const navCol2 = footerNav.slice(3, 6);
 
   return (
     <footer className="relative mt-16 overflow-hidden bg-slate-900 text-slate-300">
+      <div className="h-1 bg-gradient-to-r from-brand to-rose-500" />
       <div className="absolute inset-0 -z-10 bg-[linear-gradient(to_right,#4f4f4f2e_1px,transparent_1px),linear-gradient(to_bottom,#4f4f4f2e_1px,transparent_1px)] bg-[size:14px_24px] opacity-10" />
 
       <div className="container relative z-10 py-12">

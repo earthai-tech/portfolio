@@ -8,6 +8,7 @@ import { CurrencyToggle } from "@/components/CurrencyToggle";
 import { useState, useRef, useEffect } from "react";
 import { ChevronDown, Search, X } from "lucide-react";
 
+// Data structure is unchanged
 const navStructure = [
   {
     label: "Research",
@@ -41,7 +42,7 @@ const navStructure = [
 
 export function Header() {
   const pathname = usePathname();
-  const isActive = (href: string) => pathname?.startsWith(href);
+  // [REMOVED] The `isActive` function is no longer needed
   const [isSearchOpen, setIsSearchOpen] = useState(false);
 
   useEffect(() => {
@@ -65,7 +66,8 @@ export function Header() {
               item.items ? (
                 <DropdownMenu key={item.label} label={item.label} items={item.items} pathname={pathname} />
               ) : (
-                <Link key={item.href} href={item.href!} className={`navlink ${isActive(item.href!) ? "navlink-active" : ""}`}>
+                // [MODIFIED] Removed the active state logic to disable the persistent underline
+                <Link key={item.href} href={item.href!} className="navlink">
                   {item.label}
                 </Link>
               )
@@ -95,7 +97,11 @@ function DropdownMenu({ label, items, pathname }: { label: string; items: { href
   const [isOpen, setIsOpen] = useState(false);
   const hoverTimer = useRef<NodeJS.Timeout | null>(null);
   
-  const isParentActive = items.some(item => pathname?.startsWith(item.href));
+  // [NEW] Import `useRouter` to handle navigation
+  const router = useRouter();
+  
+  // [NEW] Get the link for the primary button click
+  const primaryLink = items[0]?.href;
 
   const onMouseEnter = () => {
     if (hoverTimer.current) clearTimeout(hoverTimer.current);
@@ -112,7 +118,13 @@ function DropdownMenu({ label, items, pathname }: { label: string; items: { href
 
   return (
     <div className="relative" onMouseEnter={onMouseEnter} onMouseLeave={onMouseLeave}>
-      <button className={`navlink flex items-center gap-1 whitespace-nowrap ${isParentActive ? "navlink-active" : ""}`}>
+      {/* [MODIFIED] Removed active state and added an onClick handler for navigation */}
+      <button
+        onClick={() => {
+          if (primaryLink) router.push(primaryLink);
+        }}
+        className="navlink flex items-center gap-1 whitespace-nowrap"
+      >
         {label}
         <ChevronDown className={`h-4 w-4 transition-transform ${isOpen ? "rotate-180" : ""}`} />
       </button>
@@ -142,12 +154,11 @@ function DropdownMenu({ label, items, pathname }: { label: string; items: { href
   );
 }
 
-// --- [NEW] Search Modal Component ---
+// --- Search Modal Component (Unchanged) ---
 function SearchModal({ onClose }: { onClose: () => void }) {
   const router = useRouter();
   const inputRef = useRef<HTMLInputElement>(null);
 
-  // Auto-focus the input field when the modal opens
   useEffect(() => {
     inputRef.current?.focus();
   }, []);
@@ -163,10 +174,7 @@ function SearchModal({ onClose }: { onClose: () => void }) {
 
   return (
     <div className="fixed inset-0 z-50 flex items-start justify-center pt-16 sm:pt-24">
-      {/* Backdrop */}
       <div className="absolute inset-0 bg-black/50 backdrop-blur-sm" onClick={onClose} />
-      
-      {/* Modal Panel */}
       <div className="relative w-full max-w-lg rounded-lg bg-white p-4 shadow-lg dark:bg-gray-900 dark:border dark:border-gray-800">
         <form onSubmit={handleSearch} className="relative">
           <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-5 w-5 text-gray-400" />
