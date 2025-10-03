@@ -34,7 +34,7 @@ const navStructure = [
     items: [
       { href: "/about", label: "About Me" },
       { href: "/teaching", label: "Teaching & Mentorship" },
-      { href: "/cv", label: "CV & Downloads" },
+      { href: "/cv", label: "Downloads" },
     ],
   },
   { href: "/contact", label: "Contact" },
