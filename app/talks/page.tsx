@@ -19,7 +19,8 @@ type Talk = {
   notes?: string;
 };
 
-const TYPES: Array<Talk["type"] | "all"> = ["all", "conference", "workshop", "seminar", "webinar"];
+// const TYPES: Array<Talk["type"] | "all"> = ["all", "conference", "workshop", "seminar", "webinar"];
+const TYPES: Array<"all" | NonNullable<Talk["type"]>> = ["all", "conference", "workshop", "seminar", "webinar"];
 const PAGE_SIZE = 10;
 
 export default function TalksPage() {
