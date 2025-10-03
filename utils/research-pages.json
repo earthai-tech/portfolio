@@ -1,0 +1,26 @@
+[
+  {
+    "href": "/research/land-subsidence",
+    "title": "Land Subsidence Forecasting",
+    "subtitle": "Physics-aware deep learning (XTFT/TFT) with calibrated uncertainty for urban risk planning.",
+    "tags": ["subsidence", "geohazards", "forecasting", "pinn", "xtft"]
+  },
+  {
+    "href": "/research/groundwater",
+    "title": "Sustainable Groundwater Exploration",
+    "subtitle": "AI-assisted hydrogeophysics for siting productive wells and estimating aquifer properties.",
+    "tags": ["groundwater", "water", "exploration", "ai", "machine learning"]
+  },
+  {
+    "href": "/research/uncertainty",
+    "title": "Interpretable Uncertainty Diagnostics",
+    "subtitle": "Make probabilistic forecasts transparent and decision-ready with visual analytics.",
+    "tags": ["uncertainty", "k-diagram", "visualization", "diagnostics", "cas"]
+  },
+  {
+    "href": "/research/xai-pinns",
+    "title": "Explainable & Physics-Informed AI",
+    "subtitle": "Building trustworthy forecasting systems by uniting transparent uncertainty diagnostics (XAI) with physically-grounded deep learning models (PINNs).",
+    "tags": ["xai", "pinn", "explainable ai", "physics-informed", "halnet", "transflowsubnet"]
+  }
+]

@@ -1,111 +1,186 @@
 "use client";
 
 import Link from "next/link";
-import { usePathname } from "next/navigation";
-import { NAV, SITE } from "@/utils/metadata";
+import { usePathname, useRouter } from "next/navigation";
+import { SITE } from "@/utils/metadata";
 import { ThemeToggle } from "@/components/ThemeToggle";
 import { CurrencyToggle } from "@/components/CurrencyToggle";
-import { useEffect, useRef, useState } from "react";
+import { useState, useRef, useEffect } from "react";
+import { ChevronDown, Search, X } from "lucide-react";
 
-const VISIBLE = 6; // show first 6; rest under "More"
+const navStructure = [
+  {
+    label: "Research",
+    items: [
+      { href: "/research", label: "All Research" },
+      { href: "/research/land-subsidence", label: "Geohazards & Disaster Risk" },
+      { href: "/research/groundwater", label: "Groundwater Exploration" },
+      { href: "/research/uncertainty", label: "Uncertainty Diagnostics" },
+      { href: "/research/xai-pinns", label: "XAI & PINNs" },
+    ],
+  },
+  {
+    label: "Projects & Outputs",
+    items: [
+      { href: "/publications", label: "Publications" },
+      { href: "/software", label: "Software" },
+      { href: "/talks", label: "Talks" },
+      { href: "/funding", label: "Funding" },
+    ],
+  },
+  {
+    label: "About",
+    items: [
+      { href: "/about", label: "About Me" },
+      { href: "/teaching", label: "Teaching & Mentorship" },
+      { href: "/cv", label: "CV & Downloads" },
+    ],
+  },
+  { href: "/contact", label: "Contact" },
+];
 
 export function Header() {
   const pathname = usePathname();
-  const primary = NAV.slice(0, VISIBLE);
-  const overflow = NAV.slice(VISIBLE);
+  const isActive = (href: string) => pathname?.startsWith(href);
+  const [isSearchOpen, setIsSearchOpen] = useState(false);
 
-  const [open, setOpen] = useState(false);
-  const hoverTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
-
-  const isActive = (href: string) =>
-    href === "/" ? pathname === "/" : pathname?.startsWith(href);
-
-  // Close the popover whenever the route changes
   useEffect(() => {
-    setOpen(false);
-  }, [pathname]);
-
-  const onEnter = () => {
-    if (hoverTimer.current) clearTimeout(hoverTimer.current);
-    setOpen(true);
-  };
-  const onLeave = () => {
-    // small delay to avoid flicker when moving pointer
-    hoverTimer.current = setTimeout(() => setOpen(false), 120);
-  };
+    const handleKeyDown = (event: KeyboardEvent) => {
+      if (event.key === 'Escape') setIsSearchOpen(false);
+    };
+    window.addEventListener('keydown', handleKeyDown);
+    return () => window.removeEventListener('keydown', handleKeyDown);
+  }, []);
 
   return (
-    <header className="border-b sticky top-0 z-50 bg-white/80 backdrop-blur
-                       border-gray-100
-                       dark:bg-gray-950/80 dark:border-gray-800">
-      <div className="container flex h-14 items-center justify-between">
-        <Link href="/" className="font-semibold text-lg tracking-tight">
-          {SITE.name}
-        </Link>
+    <>
+      <header className="sticky top-0 z-50 border-b border-gray-100 bg-white/80 backdrop-blur dark:border-gray-800 dark:bg-gray-950/80">
+        <div className="container grid h-16 grid-cols-3 items-center">
+          <Link href="/" className="text-xl font-bold tracking-tight text-gray-900 dark:text-gray-100 justify-self-start">
+            {SITE.name}
+          </Link>
 
-        <div className="flex items-center gap-3">
-          {/* Desktop nav */}
-          <nav className="hidden md:flex items-center gap-1 text-sm">
-            {primary.map((item) => (
-              <Link
-                key={item.href}
-                href={item.href}
-                className={`navlink ${isActive(item.href) ? "navlink-active" : ""}`}
-              >
-                {item.label}
-              </Link>
-            ))}
-
-            {overflow.length > 0 && (
-              <div
-                className="relative"
-                onMouseEnter={onEnter}
-                onMouseLeave={onLeave}
-              >
-                <button
-                  type="button"
-                  className="navlink cursor-pointer select-none"
-                  aria-haspopup="menu"
-                  aria-expanded={open}
-                  onClick={() => setOpen((v) => !v)} // tap/click support
-                >
-                  More{" "}
-                  <span className={`ml-1 transition-transform ${open ? "rotate-180" : ""}`}>
-                    ▾
-                  </span>
-                </button>
-
-                {open && (
-                  <ul
-                    role="menu"
-                    className="absolute right-0 mt-2 w-52 rounded-2xl border border-gray-100 bg-white shadow-lg p-1
-                               dark:border-gray-800 dark:bg-gray-900"
-                  >
-                    {overflow.map((item) => (
-                      <li key={item.href} role="none">
-                        <Link
-                          role="menuitem"
-                          href={item.href}
-                          className={`menuitem ${isActive(item.href) ? "menuitem-active" : ""}`}
-                          onClick={() => setOpen(false)} // auto-close on selection
-                        >
-                          {item.label}
-                        </Link>
-                      </li>
-                    ))}
-                  </ul>
-                )}
-              </div>
+          <nav className="hidden items-center gap-2 md:flex justify-self-center">
+            {navStructure.map((item) =>
+              item.items ? (
+                <DropdownMenu key={item.label} label={item.label} items={item.items} pathname={pathname} />
+              ) : (
+                <Link key={item.href} href={item.href!} className={`navlink ${isActive(item.href!) ? "navlink-active" : ""}`}>
+                  {item.label}
+                </Link>
+              )
             )}
           </nav>
 
-          {/* Toggles */}
-          <div className="flex items-center gap-2">
+          <div className="flex items-center gap-2 justify-self-end">
             <CurrencyToggle />
             <ThemeToggle />
+            <button
+              onClick={() => setIsSearchOpen(true)}
+              className="p-2 rounded-full hover:bg-gray-200 dark:hover:bg-gray-800 transition-colors"
+              aria-label="Open search"
+            >
+              <Search className="h-5 w-5 text-gray-600 dark:text-gray-400" />
+            </button>
           </div>
         </div>
+      </header>
+      
+      {isSearchOpen && <SearchModal onClose={() => setIsSearchOpen(false)} />}
+    </>
+  );
+}
+
+function DropdownMenu({ label, items, pathname }: { label: string; items: { href: string; label: string }[]; pathname: string | null; }) {
+  const [isOpen, setIsOpen] = useState(false);
+  const hoverTimer = useRef<NodeJS.Timeout | null>(null);
+  
+  const isParentActive = items.some(item => pathname?.startsWith(item.href));
+
+  const onMouseEnter = () => {
+    if (hoverTimer.current) clearTimeout(hoverTimer.current);
+    setIsOpen(true);
+  };
+
+  const onMouseLeave = () => {
+    hoverTimer.current = setTimeout(() => setIsOpen(false), 70);
+  };
+  
+  useEffect(() => { setIsOpen(false); }, [pathname]);
+  
+  const numColumns = Math.ceil(items.length / 2);
+
+  return (
+    <div className="relative" onMouseEnter={onMouseEnter} onMouseLeave={onMouseLeave}>
+      <button className={`navlink flex items-center gap-1 whitespace-nowrap ${isParentActive ? "navlink-active" : ""}`}>
+        {label}
+        <ChevronDown className={`h-4 w-4 transition-transform ${isOpen ? "rotate-180" : ""}`} />
+      </button>
+
+      {isOpen && (
+        <div className="dropdown-panel-animated absolute top-full mt-2 w-max origin-top rounded-xl border border-gray-100 bg-white p-2 shadow-lg dark:border-gray-800 dark:bg-gray-900">
+          <ul
+            role="menu"
+            className="grid gap-1"
+            style={{ gridTemplateColumns: `repeat(${numColumns}, minmax(0, 1fr))` }}
+          >
+            {items.map((item) => (
+              <li key={item.href} role="none">
+                <Link
+                  href={item.href}
+                  role="menuitem"
+                  className={`menuitem whitespace-nowrap ${pathname?.startsWith(item.href) ? "menuitem-active" : ""}`}
+                >
+                  {item.label}
+                </Link>
+              </li>
+            ))}
+          </ul>
+        </div>
+      )}
+    </div>
+  );
+}
+
+// --- [NEW] Search Modal Component ---
+function SearchModal({ onClose }: { onClose: () => void }) {
+  const router = useRouter();
+  const inputRef = useRef<HTMLInputElement>(null);
+
+  // Auto-focus the input field when the modal opens
+  useEffect(() => {
+    inputRef.current?.focus();
+  }, []);
+
+  const handleSearch = (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    const query = inputRef.current?.value;
+    if (query) {
+      router.push(`/search?q=${encodeURIComponent(query)}`);
+      onClose();
+    }
+  };
+
+  return (
+    <div className="fixed inset-0 z-50 flex items-start justify-center pt-16 sm:pt-24">
+      {/* Backdrop */}
+      <div className="absolute inset-0 bg-black/50 backdrop-blur-sm" onClick={onClose} />
+      
+      {/* Modal Panel */}
+      <div className="relative w-full max-w-lg rounded-lg bg-white p-4 shadow-lg dark:bg-gray-900 dark:border dark:border-gray-800">
+        <form onSubmit={handleSearch} className="relative">
+          <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-5 w-5 text-gray-400" />
+          <input
+            ref={inputRef}
+            type="search"
+            placeholder="Search publications, software, topics..."
+            className="w-full rounded-md border-gray-300 py-3 pl-10 pr-4 text-lg focus:border-brand focus:ring-brand dark:bg-gray-800 dark:border-gray-700"
+          />
+        </form>
+        <button onClick={onClose} className="absolute top-3 right-3 p-1 text-gray-400 hover:text-gray-600 dark:hover:text-gray-200">
+          <X className="h-5 w-5"/>
+        </button>
       </div>
-    </header>
+    </div>
   );
 }

@@ -27,19 +27,21 @@ body {
 }
 /* --- top nav link with animated underline --- */
 .navlink {
-  @apply relative rounded-xl px-3 py-2 text-sm text-gray-700
-         hover:bg-brand-muted hover:text-gray-900 transition-colors
-         dark:text-gray-200 dark:hover:bg-gray-800;
+  @apply relative rounded-xl px-3 py-2 text-base font-medium text-gray-600
+         transition-colors hover:text-gray-900
+         dark:text-gray-300 dark:hover:text-white;
 }
 .navlink::after {
   content: "";
   position: absolute;
-  left: 10px; right: 10px; bottom: 6px;
-  height: 2px; border-radius: 2px;
+  /* Adjusted to be wider and thicker */
+  left: 12px; right: 12px; bottom: 5px;
+  height: 3px; border-radius: 2px;
   background: theme("colors.brand.DEFAULT");
   transform: scaleX(0);
-  transform-origin: left;
-  transition: transform .18s ease;
+  /* Changed transform origin for a "grow from center" effect */
+  transform-origin: center;
+  transition: transform .2s ease-out;
 }
 .navlink:hover::after { transform: scaleX(1); }
 .navlink-active { @apply text-gray-900 dark:text-white; }
@@ -132,4 +134,33 @@ details > summary::-webkit-details-marker { display: none; }
 }
 .action-badge {
   @apply inline-flex cursor-pointer items-center gap-2 rounded-full border bg-gray-50 px-3 py-1.5 text-sm font-medium text-gray-700 transition-colors hover:border-brand hover:text-brand dark:border-gray-800 dark:bg-gray-800/50 dark:text-gray-300 dark:hover:border-brand dark:hover:text-brand;
+}
+/* --- Add this at the end of your globals.css file --- */
+
+/* 1. Keyframe animation for dropdown entry */
+@keyframes fadeInDown {
+  from {
+    opacity: 0;
+    transform: translateY(-10px) scale(0.98);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+/* 2. Class to apply the animation */
+.dropdown-panel-animated {
+  animation: fadeInDown 0.15s ease-out forwards;
+}
+
+/* 3. Update existing menuitem styles for better feedback */
+.menuitem {
+  @apply block rounded-lg px-3 py-2 text-sm text-gray-600 transition-colors
+         hover:bg-brand-muted hover:text-brand-dark
+         dark:text-gray-300 dark:hover:bg-gray-800 dark:hover:text-brand;
+}
+.menuitem-active {
+  @apply bg-brand-muted font-semibold text-brand-dark
+         dark:bg-gray-800 dark:text-brand;
 }

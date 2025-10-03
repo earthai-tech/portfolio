@@ -1,37 +1,104 @@
+// components/Footer.tsx
 import Link from "next/link";
 import { SITE } from "@/utils/metadata";
+import { Mail } from "lucide-react";
+import {
+  SiGithub,
+  SiGooglescholar,
+  SiOrcid,
+  SiLinkedin,
+  SiResearchgate
+} from "react-icons/si";
 
 export function Footer() {
+  const socialLinks = [
+    { href: SITE.github, icon: SiGithub, label: "GitHub" },
+    { href: SITE.scholar, icon: SiGooglescholar, label: "Google Scholar" },
+    { href: SITE.orcid, icon: SiOrcid, label: "ORCID" },
+    { href: SITE.linkedin, icon: SiLinkedin, label: "LinkedIn" },
+    { href: SITE.researchgate, icon: SiResearchgate, label: "ResearchGate" },
+  ];
+
+  // [MODIFIED] A curated list of the 6 most important navigation links for the footer
+  const footerNav = [
+    { href: "/research", label: "Research" },
+    { href: "/publications", label: "Publications" },
+    { href: "/software", label: "Software" },
+    { href: "/about", label: "About" },
+    { href: "/cv", label: "CV" },
+    { href: "/contact", label: "Contact" },
+  ];
+
+  // [MODIFIED] Split the curated list into two columns of three
+  const navCol1 = footerNav.slice(0, 3);
+  const navCol2 = footerNav.slice(3, 6);
+
   return (
-    <footer className="mt-16 border-t border-gray-100">
-      <div className="container py-10 text-sm text-gray-600">
-        <div className="flex flex-col gap-2">
-          <div>
-            <strong>{SITE.name}</strong> — {SITE.title}
+    <footer className="relative mt-16 overflow-hidden bg-slate-900 text-slate-300">
+      <div className="absolute inset-0 -z-10 bg-[linear-gradient(to_right,#4f4f4f2e_1px,transparent_1px),linear-gradient(to_bottom,#4f4f4f2e_1px,transparent_1px)] bg-[size:14px_24px] opacity-10" />
+
+      <div className="container relative z-10 py-12">
+        <div className="grid gap-8 md:grid-cols-12">
+          {/* Column 1: Identity */}
+          <div className="md:col-span-5 lg:col-span-4">
+            <h3 className="text-lg font-bold text-white">{SITE.name}</h3>
+            <p className="mt-2 text-sm text-slate-400">{SITE.title}</p>
+            <a href={`mailto:${SITE.emailPrimary}`} className="mt-4 inline-flex items-center gap-2 text-sm text-slate-400 transition-colors hover:text-brand">
+              <Mail className="h-4 w-4" />
+              {SITE.emailPrimary}
+            </a>
           </div>
-          <div>{SITE.location}</div>
-          <div className="flex flex-wrap gap-3">
-            <Link href={`mailto:${SITE.emailPrimary}`}>{SITE.emailPrimary}</Link>
-            <span>·</span>
-            <Link href={`mailto:${SITE.emailAlt}`}>{SITE.emailAlt}</Link>
-            <span>·</span>
-            <Link href={SITE.github} target="_blank">GitHub</Link>
-            <span>·</span>
-            <Link href={SITE.scholar} target="_blank">Scholar</Link>
-            <span>·</span>
-            <Link href={SITE.orcid} target="_blank">ORCID</Link>
-            <span>·</span>
-            <Link href={SITE.linkedin} target="_blank">LinkedIn</Link>
-            <span>·</span>
-            <Link href={SITE.researchgate} target="_blank">ResearchGate</Link>
+
+          {/* Column 2 & 3: Sitemap */}
+          <div className="md:col-span-4 lg:col-span-5">
+            <h4 className="font-semibold uppercase tracking-wider text-slate-500">Navigate</h4>
+            <div className="mt-4 grid grid-cols-2 gap-4">
+              <ul className="space-y-2">
+                {navCol1.map((item) => (
+                  <li key={item.href}>
+                    <Link href={item.href} className="transition-colors hover:text-brand">
+                      {item.label}
+                    </Link>
+                  </li>
+                ))}
+              </ul>
+              <ul className="space-y-2">
+                {navCol2.map((item) => (
+                  <li key={item.href}>
+                    <Link href={item.href} className="transition-colors hover:text-brand">
+                      {item.label}
+                    </Link>
+                  </li>
+                ))}
+              </ul>
+            </div>
           </div>
-          <div className="text-xs text-gray-400">
-            © {new Date().getFullYear()} {SITE.name}. All rights reserved.
+
+          {/* Column 4: Connect */}
+          <div className="md:col-span-3 lg:col-span-3">
+            <h4 className="font-semibold uppercase tracking-wider text-slate-500">Connect</h4>
+            <div className="mt-4 flex items-center space-x-5">
+              {socialLinks.map(({ href, icon: Icon, label }) => (
+                <a
+                  key={href}
+                  href={href}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  aria-label={label}
+                  title={label}
+                  className="text-slate-400 transition-colors hover:text-brand"
+                >
+                  <Icon className="h-6 w-6" />
+                </a>
+              ))}
+            </div>
           </div>
+        </div>
+
+        <div className="mt-12 border-t border-slate-800 pt-6 text-center text-sm text-slate-500">
+          © {new Date().getFullYear()} {SITE.name}. All rights reserved.
         </div>
       </div>
     </footer>
   );
 }
-
-
