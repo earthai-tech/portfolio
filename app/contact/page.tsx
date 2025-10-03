@@ -2,12 +2,11 @@
 
 import { useState } from "react";
 import { PageHero } from "@/components/PageHero";
-import { Card } from "@/components/Card";
+// [REMOVED] Card import is no longer needed on this page
 import { SocialLinks } from "@/components/SocialLinks";
 import { Mail, Send, Calendar, Lightbulb, Users, Presentation } from "lucide-react";
 
 export default function ContactPage() {
-  // [NEW] State to manage the form's subject line
   const [subject, setSubject] = useState('');
 
   const contactTopics = [
@@ -23,7 +22,8 @@ export default function ContactPage() {
         subtitle="I'm always open to discussing new research projects, collaborations, and opportunities. Please feel free to reach out using the form below."
       />
 
-      <Card className="hover:shadow-sm hover:translate-y-0">
+      {/* [FIXED] Replaced <Card> with a <div> that has the "card" class */}
+      <div className="card hover:shadow-sm hover:translate-y-0">
         <div className="grid grid-cols-1 md:grid-cols-3 gap-12">
           {/* --- Left Column: Contact Points --- */}
           <div className="space-y-8">
@@ -35,7 +35,6 @@ export default function ContactPage() {
             </div>
             <div className="space-y-4">
               <ContactLink icon={Mail} href="mailto:lkouao@csu.edu.cn" text="lkouao [at] csu.edu.cn" />
-              {/* Suggestion: Add a Calendly or other scheduling link here */}
               <ContactLink icon={Calendar} href="#" text="Schedule a Call" />
             </div>
             <div className="pt-8 border-t border-gray-200 dark:border-gray-800">
@@ -47,13 +46,12 @@ export default function ContactPage() {
           {/* --- Right Column: Contact Form --- */}
           <div className="md:col-span-2">
             <h3 className="text-xl font-bold">How Can I Help?</h3>
-            {/* [NEW] Interactive subject pills */}
             <div className="my-4 flex flex-wrap gap-2">
               {contactTopics.map(({ label, icon: Icon }) => (
-                 <button key={label} onClick={() => setSubject(label)} className="action-badge">
-                   <Icon className="h-4 w-4" />
-                   <span>{label}</span>
-                 </button>
+                  <button key={label} onClick={() => setSubject(label)} className="action-badge">
+                    <Icon className="h-4 w-4" />
+                    <span>{label}</span>
+                  </button>
               ))}
             </div>
 
@@ -63,7 +61,6 @@ export default function ContactPage() {
                 <InputField id="email" name="email" type="email" label="Your Email" placeholder="jane.doe@example.com" required />
               </div>
               
-              {/* [NEW] Subject field pre-filled by the buttons */}
               <InputField
                 id="subject" name="_subject" label="Subject" placeholder="Regarding..."
                 value={subject} onChange={(e: React.ChangeEvent<HTMLInputElement>) => setSubject(e.target.value)} required
@@ -87,13 +84,12 @@ export default function ContactPage() {
             </form>
           </div>
         </div>
-      </Card>
+      </div>
     </div>
   );
 }
 
-// --- Helper Components for the new design ---
-
+// --- Helper Components ---
 function ContactLink({ icon: Icon, href, text }: { icon: React.ElementType, href: string, text: string }) {
   return (
     <a href={href} className="group flex items-center gap-3 text-lg transition-colors hover:text-brand">
