@@ -7,8 +7,8 @@ export function PageHero({
   aside,
   imageLeft = false,
 }: {
-  title: string;
-  subtitle?: string;
+  title: ReactNode;
+  subtitle?: ReactNode;
   children?: ReactNode;
   aside?: ReactNode;
   imageLeft?: boolean;
