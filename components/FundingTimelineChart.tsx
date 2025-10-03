@@ -10,7 +10,7 @@ import { Card } from "@/components/Card";
 type Funding = typeof data[0];
 
 export default function FundingTimelineChart() {
-  const { currency } = useCurrency();
+  const { currency, usdPerCnyRate } = useCurrency();
   const [hovered, setHovered] = useState<Funding | null>(null);
 
   const sortedData = useMemo(() => 
@@ -53,7 +53,7 @@ export default function FundingTimelineChart() {
           <div className="text-sm text-right">
             <div className="font-bold">{hovered.title}</div>
             <div className="text-gray-600 dark:text-gray-400">
-              {hovered.period_start} → {hovered.period_end} ({formatMoney(convertFromCNY(hovered.amount_cny ?? 0, currency), currency)})
+              {hovered.period_start} → {hovered.period_end} ({formatMoney(convertFromCNY(hovered.amount_cny ?? 0, currency, usdPerCnyRate), currency)})
             </div>
           </div>
         )}
