@@ -1,9 +1,8 @@
-// app/software/page.tsx
 import fs from "fs";
 import path from "path";
 import { PageHero } from "@/components/PageHero";
 import allSoftware from "@/data/software.json";
-import SoftwareList from "@/components/SoftwareList"; // Import the new client component
+import SoftwareList, { type Item } from "@/components/SoftwareList"; 
 import { Search } from 'lucide-react';
 
 // This function runs on the server to get the list of logo files
@@ -44,7 +43,7 @@ export default function SoftwarePage() {
       </PageHero>
 
       {/* Render the client component with the necessary data */}
-      <SoftwareList allSoftware={allSoftware} availableLogos={availableLogos} />
+      <SoftwareList allSoftware={allSoftware as Item[]} availableLogos={availableLogos} />
     </div>
   );
 }

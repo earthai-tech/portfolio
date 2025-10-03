@@ -52,9 +52,7 @@ export default function HomePage() {
           </h1>
         }
         subtitle={
-          <p className="mt-4 max-w-2xl text-lg text-gray-600 dark:text-gray-300 md:text-xl">
-            Hi, I'm a researcher passionate about decoding Earth's subsurface. My work combines physics-informed AI and open-source software to tackle critical environmental challenges, from predicting geohazards to sustainably managing our planet's resources.
-          </p>
+            "Hi, I'm a researcher passionate about decoding Earth's subsurface. My work combines physics-informed AI and open-source software to tackle critical environmental challenges, from predicting geohazards to sustainably managing our planet's resources."
         }
         aside={
           <div className="p-1 rounded-full bg-gradient-to-tr from-brand to-rose-500 shadow-xl">

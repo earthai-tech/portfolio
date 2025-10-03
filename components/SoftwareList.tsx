@@ -15,7 +15,7 @@ import {
 
 // --- Type Definitions (can be shared from another file if needed) ---
 type Link = { label: string; href: string };
-type Item = {
+export type Item = {
   name: string;
   description: string;
   license?: string;
