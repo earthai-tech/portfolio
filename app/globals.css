@@ -25,3 +25,111 @@ body {
          dark:bg-gray-900 dark:border-gray-700 dark:text-gray-200
          dark:hover:bg-gray-800;
 }
+/* --- top nav link with animated underline --- */
+.navlink {
+  @apply relative rounded-xl px-3 py-2 text-sm text-gray-700
+         hover:bg-brand-muted hover:text-gray-900 transition-colors
+         dark:text-gray-200 dark:hover:bg-gray-800;
+}
+.navlink::after {
+  content: "";
+  position: absolute;
+  left: 10px; right: 10px; bottom: 6px;
+  height: 2px; border-radius: 2px;
+  background: theme("colors.brand.DEFAULT");
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform .18s ease;
+}
+.navlink:hover::after { transform: scaleX(1); }
+.navlink-active { @apply text-gray-900 dark:text-white; }
+.navlink-active::after { transform: scaleX(1); }
+
+/* --- dropdown menu items --- */
+.menuitem {
+  @apply block rounded-xl px-3 py-2 text-sm text-gray-700 hover:bg-gray-50
+         dark:text-gray-200 dark:hover:bg-gray-800;
+}
+.menuitem-active { @apply bg-brand-muted/60 dark:bg-gray-800; }
+
+/* remove default marker on <summary> */
+details > summary::-webkit-details-marker { display: none; }
+
+
+@layer components {
+  /* ---- Pretty table ---- */
+  .table-nice {
+    @apply w-full text-sm border border-gray-100 rounded-2xl overflow-hidden
+           dark:border-gray-800;
+  }
+
+  /* header */
+  .table-nice thead th {
+    @apply bg-brand-muted text-gray-700 font-medium p-3
+           dark:bg-gray-900 dark:text-gray-200;
+  }
+
+  /* body cells */
+  .table-nice tbody td {
+    @apply p-3 align-top border-t border-gray-100
+           dark:border-gray-800;
+  }
+
+  /* zebra striping */
+  .table-nice tbody tr:nth-child(even) {
+    @apply bg-gray-50 dark:bg-gray-900;
+  }
+
+  /* hover: row background + thicker top/bottom edge */
+  .table-nice tbody tr {
+    @apply transition-colors;
+    position: relative; /* for the left accent bar */
+  }
+  .table-nice tbody tr:hover {
+    @apply bg-brand-muted/40;
+  }
+  .table-nice tbody tr:hover td {
+    border-top-width: 2px;
+    border-bottom-width: 2px;
+    @apply border-brand-dark;
+  }
+
+  /* subtle left accent bar on hover */
+  .table-nice tbody tr::before {
+    content: "";
+    position: absolute;
+    left: 0; top: 0; bottom: 0;
+    width: 3px;
+    opacity: 0;
+    transition: opacity .15s ease;
+    /* Tailwind in pseudo is fine */
+    @apply bg-brand;
+  }
+  .table-nice tbody tr:hover::before {
+    opacity: 1;
+  }
+
+  /* optional compact variant */
+  .table-compact thead th { @apply p-2; }
+  .table-compact tbody td { @apply p-2; }
+
+  /* optional: sticky header if you like inside a scroll container */
+  .table-sticky thead th {
+    position: sticky;
+    top: 0;
+    z-index: 1;
+  }
+}
+
+.input-label {
+  @apply mb-1 block text-sm font-medium text-gray-700 dark:text-gray-300;
+}
+.input-field {
+  @apply block w-full rounded-lg border bg-transparent px-3 py-2 text-sm shadow-sm
+         border-gray-300 dark:border-gray-700
+         focus:border-brand focus:ring focus:ring-brand focus:ring-opacity-50
+         placeholder:text-sm placeholder:italic placeholder:text-gray-400 dark:placeholder:text-gray-500;
+}
+.action-badge {
+  @apply inline-flex cursor-pointer items-center gap-2 rounded-full border bg-gray-50 px-3 py-1.5 text-sm font-medium text-gray-700 transition-colors hover:border-brand hover:text-brand dark:border-gray-800 dark:bg-gray-800/50 dark:text-gray-300 dark:hover:border-brand dark:hover:text-brand;
+}

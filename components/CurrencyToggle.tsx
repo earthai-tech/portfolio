@@ -1,3 +1,4 @@
+// components/CurrencyToggle.tsx
 "use client";
 import { useCurrency } from "./CurrencyProvider";
 
@@ -5,7 +6,8 @@ export function CurrencyToggle({ className = "" }: { className?: string }) {
   const { currency, setCurrency } = useCurrency();
   return (
     <div className={`inline-flex items-center border rounded-full overflow-hidden ${className}`}>
-      {(["CNY", "USD"] as const).map((c) => (
+      {/* [FIX] Change order to show USD first */}
+      {(["USD", "CNY"] as const).map((c) => (
         <button
           key={c}
           onClick={() => setCurrency(c)}

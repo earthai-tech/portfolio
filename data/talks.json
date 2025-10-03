@@ -1,0 +1,163 @@
+[
+  {
+    "year": 2024,
+    "event": "4th International Conference on Intelligent Computing and Next Generation Networks",
+    "role": "Speaker",
+    "title": "Adaptive Hammerstein–Wiener Model for Intelligent System Modeling",
+    "start": "2024-11-23",
+    "end": "2024-11-25",
+    "location": "Bangkok, Thailand",
+    "type": "conference"
+  },
+  {
+    "year": 2024,
+    "event": "Annual Meeting of Chinese Geosciences Union (CGU)",
+    "role": "Speaker",
+    "title": "Multifaceted Anomaly Detection in Landfills Using ERT Data",
+    "start": "2024-10-19",
+    "end": "2024-10-23",
+    "location": "Xiamen, China",
+    "type": "conference",
+    "notes": "Talk slot 08:55–09:10"
+  },
+  {
+    "year": 2024,
+    "event": "2nd China Forum on Geothermal Frontiers",
+    "role": "Speaker",
+    "title": "Geothermal AI 2.0",
+    "start": "2024-10-13",
+    "end": "2024-10-15",
+    "location": "Beijing, China",
+    "type": "conference"
+  },
+  {
+    "year": 2024,
+    "event": "11th International Conference on Environmental and Engineering Geophysics (ICEEG 2024)",
+    "role": "Speaker",
+    "title": "Groundwater Reservoir Mapping via a Pseudo-Stratigraphic Approach",
+    "start": "2024-06-27",
+    "end": "2024-06-30",
+    "location": "Beijing, China",
+    "type": "conference"
+  },
+  {
+    "year": 2024,
+    "event": "International Workshop on Gravity, Electrical & Magnetic Methods and Their Applications (GEM 2024)",
+    "role": "Session chair & speaker",
+    "title": "AI in GEM — What’s Next?",
+    "start": "2024-05-19",
+    "end": "2024-05-23",
+    "location": "Shenzhen, China",
+    "type": "workshop"
+  },
+  {
+    "year": 2023,
+    "event": "10th International Conference on Environmental and Engineering Geophysics (ICEEG 2023)",
+    "role": "Participant / Presenter",
+    "title": "",
+    "start": "2023-06-25",
+    "end": "2023-06-30",
+    "location": "Beijing, China",
+    "type": "conference"
+  },
+  {
+    "year": 2023,
+    "event": "Annual Meeting of Chinese Geosciences Union (CGU)",
+    "role": "Participant / Presenter",
+    "title": "",
+    "start": "2023-10-28",
+    "end": "2023-10-31",
+    "location": "Zhajian, China",
+    "type": "conference"
+  },
+  {
+    "year": 2020,
+    "event": "9th Annual Conference for the Development & Utilization of Geothermal Energy",
+    "role": "Speaker",
+    "title": "",
+    "start": "2020-03-25",
+    "end": "2020-03-27",
+    "location": "Beijing, China",
+    "type": "conference"
+  },
+  {
+    "year": 2020,
+    "event": "SEG–AAPG Workshop",
+    "role": "Speaker",
+    "title": "Potential and Challenges of Applying AI/ML in Geoscience",
+    "start": "2020-01-28",
+    "end": "2020-01-30",
+    "location": "AbuDhabi, UAE",
+    "type": "workshop"
+  },
+  {
+    "year": 2020,
+    "event": "MATLAB Energy Conference",
+    "role": "Speaker",
+    "title": "Reservoir Modeling with MRST; Open-source Sequence & Chronostratigraphy Toolkit; Wavelets for AI-assisted Seismic Interpretation",
+    "start": "2020-01-01",
+    "end": "2020-01-05",
+    "location": "Online",
+    "type": "conference"
+  },
+  {
+    "year": 2020,
+    "event": "OriginLab Web Seminar",
+    "role": "Speaker",
+    "title": "Using Set Column Values for Data Processing in Origin",
+    "start": "2020-01-10",
+    "end": "2020-01-15",
+    "location": "Online",
+    "type": "webinar"
+  },
+  {
+    "year": 2019,
+    "event": "Annual Meeting of Chinese Geosciences Union (CGU)",
+    "role": "Participant / Presenter",
+    "title": "",
+    "start": "2019-10-28",
+    "end": "2019-10-31",
+    "location": "Beijing, China",
+    "type": "conference"
+  },
+  {
+    "year": 2019,
+    "event": "SEG Electromagnetic Ledge Technology Conference",
+    "role": "Speaker",
+    "title": "Confidence Visualization for Error Detection from Noisy Audio-Magnetotelluric Data",
+    "start": "2019-10-30",
+    "end": "2019-11-01",
+    "location": "Houston, USA",
+    "type": "conference"
+  },
+  {
+    "year": 2018,
+    "event": "Annual Meeting of Chinese Geosciences Union (CGU)",
+    "role": "Participant / Presenter",
+    "title": "",
+    "start": "2018-10-27",
+    "end": "2018-10-31",
+    "location": "Beijing, China",
+    "type": "conference"
+  },
+  {
+    "year": 2017,
+    "event": "Overview of Continental Scientific Drilling",
+    "role": "Seminar",
+    "title": "Talk by Prof. Yang Gansheng (attendee/organizer)",
+    "start": "2017-12-28",
+    "end": "2017-12-31",
+    "location": "Online",
+    "type": "seminar"
+  },
+  {
+    "year": 2019,
+    "event": "Quantou Formation of the Songliao Basin via Geochemical Logs of Borehole SK-2e",
+    "role": "Seminar",
+    "title": "Milankovitch Cycle Identification",
+    "start": "2019-12-05",
+    "end": "2019-12-10",
+    "location": "Beijing, China",
+    "type": "seminar"
+  }
+]

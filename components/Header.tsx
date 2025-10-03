@@ -2,38 +2,108 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { NAV } from "@/utils/metadata";
+import { NAV, SITE } from "@/utils/metadata";
 import { ThemeToggle } from "@/components/ThemeToggle";
 import { CurrencyToggle } from "@/components/CurrencyToggle";
+import { useEffect, useRef, useState } from "react";
+
+const VISIBLE = 6; // show first 6; rest under "More"
 
 export function Header() {
   const pathname = usePathname();
+  const primary = NAV.slice(0, VISIBLE);
+  const overflow = NAV.slice(VISIBLE);
+
+  const [open, setOpen] = useState(false);
+  const hoverTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
+
+  const isActive = (href: string) =>
+    href === "/" ? pathname === "/" : pathname?.startsWith(href);
+
+  // Close the popover whenever the route changes
+  useEffect(() => {
+    setOpen(false);
+  }, [pathname]);
+
+  const onEnter = () => {
+    if (hoverTimer.current) clearTimeout(hoverTimer.current);
+    setOpen(true);
+  };
+  const onLeave = () => {
+    // small delay to avoid flicker when moving pointer
+    hoverTimer.current = setTimeout(() => setOpen(false), 120);
+  };
+
   return (
     <header className="border-b sticky top-0 z-50 bg-white/80 backdrop-blur
                        border-gray-100
                        dark:bg-gray-950/80 dark:border-gray-800">
-      <div className="container flex items-center justify-between py-4">
-        <Link href="/" className="font-semibold text-lg">Laurent Kouadio</Link>
+      <div className="container flex h-14 items-center justify-between">
+        <Link href="/" className="font-semibold text-lg tracking-tight">
+          {SITE.name}
+        </Link>
 
-        <div className="flex items-center gap-4">
-          <nav className="flex gap-4 text-sm">
-            {NAV.map((item) => {
-              const active =
-                item.href === "/" ? pathname === "/" : pathname?.startsWith(item.href);
-              return (
-                <Link
-                  key={item.href}
-                  href={item.href}
-                  className={`px-2 py-1 rounded-md hover:bg-gray-50
-                              dark:hover:bg-gray-900
-                              ${active ? "text-brand font-medium" : "text-gray-700 dark:text-gray-300"}`}
+        <div className="flex items-center gap-3">
+          {/* Desktop nav */}
+          <nav className="hidden md:flex items-center gap-1 text-sm">
+            {primary.map((item) => (
+              <Link
+                key={item.href}
+                href={item.href}
+                className={`navlink ${isActive(item.href) ? "navlink-active" : ""}`}
+              >
+                {item.label}
+              </Link>
+            ))}
+
+            {overflow.length > 0 && (
+              <div
+                className="relative"
+                onMouseEnter={onEnter}
+                onMouseLeave={onLeave}
+              >
+                <button
+                  type="button"
+                  className="navlink cursor-pointer select-none"
+                  aria-haspopup="menu"
+                  aria-expanded={open}
+                  onClick={() => setOpen((v) => !v)} // tap/click support
                 >
-                  {item.label}
-                </Link>
-              );
-            })}
+                  More{" "}
+                  <span className={`ml-1 transition-transform ${open ? "rotate-180" : ""}`}>
+                    ▾
+                  </span>
+                </button>
+
+                {open && (
+                  <ul
+                    role="menu"
+                    className="absolute right-0 mt-2 w-52 rounded-2xl border border-gray-100 bg-white shadow-lg p-1
+                               dark:border-gray-800 dark:bg-gray-900"
+                  >
+                    {overflow.map((item) => (
+                      <li key={item.href} role="none">
+                        <Link
+                          role="menuitem"
+                          href={item.href}
+                          className={`menuitem ${isActive(item.href) ? "menuitem-active" : ""}`}
+                          onClick={() => setOpen(false)} // auto-close on selection
+                        >
+                          {item.label}
+                        </Link>
+                      </li>
+                    ))}
+                  </ul>
+                )}
+              </div>
+            )}
           </nav>
-          <ThemeToggle />
+
+          {/* Toggles */}
+          <div className="flex items-center gap-2">
+            <CurrencyToggle />
+            <ThemeToggle />
+          </div>
         </div>
       </div>
     </header>

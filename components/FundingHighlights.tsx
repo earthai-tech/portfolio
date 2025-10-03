@@ -6,7 +6,8 @@ import { useCurrency } from "@/components/CurrencyProvider";
 import { convertFromCNY, formatMoney } from "@/utils/currency";
 
 export default function FundingHighlights({ count = 3 }: { count?: number }) {
-  const { currency } = useCurrency();
+  // [MODIFIED] Get the live exchange rate from the hook
+  const { currency, usdPerCnyRate } = useCurrency();
   const items = data as Array<{
     title: string; amount_cny?: number | null; period_start: string; period_end: string;
     grant_number?: string; type: "Grant" | "Contract";
@@ -24,7 +25,8 @@ export default function FundingHighlights({ count = 3 }: { count?: number }) {
       <h3 className="text-lg font-semibold">Funding highlights</h3>
       <ul className="space-y-3">
         {top.map((d, i) => {
-          const amt = d.amount_cny == null ? "—" : formatMoney(convertFromCNY(d.amount_cny, currency), currency);
+          // [MODIFIED] Pass the live rate to the conversion function
+          const amt = d.amount_cny == null ? "—" : formatMoney(convertFromCNY(d.amount_cny, currency, usdPerCnyRate), currency);
           return (
             <li key={i} className="card">
               <div className="text-sm text-gray-500">{d.type} • {d.period_start} → {d.period_end}</div>

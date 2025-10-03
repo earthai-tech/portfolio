@@ -1,183 +1,165 @@
+// components/FundingTable.tsx
 "use client";
 
 import { useEffect, useMemo, useState } from "react";
+import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import data from "@/data/funding.json";
 import { useCurrency } from "@/components/CurrencyProvider";
-import { CurrencyToggle } from "@/components/CurrencyToggle";
 import { convertFromCNY, formatMoney } from "@/utils/currency";
 import Pagination from "@/components/Pagination";
+import { Card } from "@/components/Card";
+import { Building, Award } from "lucide-react";
 
-type Funding = {
-  title: string;
-  period_start: string; // YYYY-MM
-  period_end: string;   // YYYY-MM
-  type: "Contract" | "Grant";
-  subtype?: string;
-  program?: string;
-  organization?: string;
-  location?: string;
-  grant_number?: string;
-  funder_id?: string;
-  amount_cny?: number | null;
-};
-
-const PAGE_SIZE = 8; // how many rows per page
+type Funding = typeof data[0];
+const PAGE_SIZE = 8;
 
 export default function FundingTable() {
-  const { currency } = useCurrency();
+  // [STEP 1] Get the live exchange rate from the hook
+  const { currency, usdPerCnyRate } = useCurrency();
+  const router = useRouter();
+  const pathname = usePathname();
+  const searchParams = useSearchParams();
 
-  const [q, setQ] = useState("");
-  const [type, setType] = useState<"All" | "Contract" | "Grant">("All");
-  const [year, setYear] = useState<"All" | number>("All");
-  const [page, setPage] = useState(1);
+  const [q, setQ] = useState(searchParams.get("q") ?? "");
+  const [type, setType] = useState<'All' | 'Contract' | 'Grant'>(
+    (searchParams.get("type") as any) ?? "All"
+  );
+  const [year, setYear] = useState<'All' | number>(
+    Number(searchParams.get("year")) || "All"
+  );
+  const [page, setPage] = useState(Number(searchParams.get("page")) || 1);
 
-  const items = data as Funding[];
-
-  const years = useMemo(() => {
-    const ys = new Set<number>();
-    items.forEach((d) => {
-      const y = Number(d.period_start.slice(0, 4));
-      if (!Number.isNaN(y)) ys.add(y);
+  const updateParams = (newParams: Record<string, string | number>) => {
+    const params = new URLSearchParams(searchParams.toString());
+    Object.entries(newParams).forEach(([key, value]) => {
+      if (value === "" || value === "All" || value === "all" || value === 1) {
+        params.delete(key);
+      } else {
+        params.set(key, String(value));
+      }
     });
-    return Array.from(ys).sort((a, b) => b - a);
-  }, [items]);
+    const newQuery = `?${params.toString()}`;
+    router.replace(`${pathname}${newQuery === '?' ? '' : newQuery}`);
+  };
+
+  const items = useMemo(() => data as Funding[], []);
+  const years = useMemo(() => 
+    Array.from(new Set(items.map(d => new Date(d.period_start).getFullYear())))
+      .sort((a, b) => b - a), [items]
+  );
 
   const filtered = useMemo(() => {
     return items.filter((d) => {
-      const text = [
-        d.title, d.type, d.subtype, d.program, d.organization, d.location, d.grant_number
-      ].filter(Boolean).join(" ").toLowerCase();
-      const matchQ = q.trim().length === 0 || text.includes(q.toLowerCase());
-      const matchType = type === "All" || d.type === type;
-      const matchYear = year === "All" || d.period_start.startsWith(String(year));
-      return matchQ && matchType && matchYear;
+      const text = [d.title, d.program, d.organization, d.grant_number].join(" ").toLowerCase();
+      return (
+        (q === "" || text.includes(q.toLowerCase())) &&
+        (type === "All" || d.type === type) &&
+        (year === "All" || new Date(d.period_start).getFullYear() === year)
+      );
     });
   }, [items, q, type, year]);
-
-  // Reset to page 1 whenever filters change
-  useEffect(() => { setPage(1); }, [q, type, year]);
-
-  // Totals computed over the filtered set (not per page)
-  const totals = useMemo(() => {
-    const sumCNY = (arr: Funding[]) => arr.reduce((acc, x) => acc + (x.amount_cny || 0), 0);
-    const allCny = sumCNY(filtered);
-    const contractsCny = sumCNY(filtered.filter((x) => x.type === "Contract"));
-    const grantsCny = sumCNY(filtered.filter((x) => x.type === "Grant"));
-    return {
-      all: formatMoney(convertFromCNY(allCny, currency), currency),
-      contracts: formatMoney(convertFromCNY(contractsCny, currency), currency),
-      grants: formatMoney(convertFromCNY(grantsCny, currency), currency),
-    };
-  }, [filtered, currency]);
-
-  // Pagination
+  
   const totalPages = Math.max(1, Math.ceil(filtered.length / PAGE_SIZE));
-  const startIdx = (page - 1) * PAGE_SIZE;
-  const rows = filtered.slice(startIdx, startIdx + PAGE_SIZE);
-  const rangeFrom = filtered.length ? startIdx + 1 : 0;
-  const rangeTo = Math.min(startIdx + PAGE_SIZE, filtered.length);
+  const rows = useMemo(() => {
+    const currentPage = page > totalPages ? totalPages : page;
+    const startIdx = (currentPage - 1) * PAGE_SIZE;
+    return filtered.slice(startIdx, startIdx + PAGE_SIZE);
+  }, [filtered, page, totalPages]);
 
-  const amountHeader = `Amount (${currency})`;
-  const renderAmount = (cny?: number | null) =>
-    formatMoney(cny == null ? null : convertFromCNY(cny, currency), currency);
+  useEffect(() => {
+    const newPage = page > totalPages ? totalPages : 1;
+    updateParams({ q, type, year: String(year), page: newPage });
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [q, type, year]);
 
   return (
-    <div className="space-y-4">
-      {/* Controls */}
-      <div className="flex flex-wrap items-center gap-3">
-        <input
-          className="border rounded-lg px-3 py-2 text-sm w-64"
-          placeholder="Search title, program, grant no., location…"
-          value={q}
-          onChange={(e) => setQ(e.target.value)}
-        />
-        <select
-          className="border rounded-lg px-3 py-2 text-sm"
-          value={type}
-          onChange={(e) => setType(e.target.value as "All" | "Contract" | "Grant")}
-        >
-          <option>All</option>
-          <option>Contract</option>
-          <option>Grant</option>
-        </select>
-        <select
-          className="border rounded-lg px-3 py-2 text-sm"
-          value={year}
-          onChange={(e) => setYear(e.target.value === "All" ? "All" : Number(e.target.value))}
-        >
-          <option>All</option>
-          {years.map((y) => <option key={y} value={y}>{y}</option>)}
-        </select>
-
-        {/* Right-aligned: currency toggle + totals + showing range */}
-        <div className="ml-auto flex flex-wrap items-center gap-3 text-sm text-gray-600 dark:text-gray-300">
-          <CurrencyToggle />
-          <span>Total: <strong>{totals.all}</strong></span>
-          <span>Contracts: <strong>{totals.contracts}</strong></span>
-          <span>Grants: <strong>{totals.grants}</strong></span>
-          <span className="opacity-70">|</span>
-          <span>
-            Showing <strong>{rangeFrom}-{rangeTo}</strong> of <strong>{filtered.length}</strong>
-          </span>
-        </div>
+    <div className="space-y-6">
+      <div className="text-center">
+        <h2 className="text-xl font-bold">Detailed Funding List</h2>
+        <p className="text-gray-600 dark:text-gray-400">
+          Use the filters below to search the complete list of grants and contracts.
+        </p>
       </div>
+      <Card>
+        <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
+          <input
+            className="md:col-span-2 w-full rounded-lg border bg-transparent px-3 py-2 text-sm focus:border-brand"
+            placeholder="Search title, program, grant no..."
+            value={q}
+            onChange={(e) => setQ(e.target.value)}
+          />
+          <select value={type} onChange={(e) => setType(e.target.value as any)} className="rounded-lg border bg-transparent px-3 py-2 text-sm focus:border-brand">
+            <option>All Types</option><option>Contract</option><option>Grant</option>
+          </select>
+          <select value={year} onChange={(e) => setYear(e.target.value === "All" ? "All" : Number(e.target.value))} className="rounded-lg border bg-transparent px-3 py-2 text-sm focus:border-brand">
+            <option value="All">All Years</option>
+            {years.map((y) => <option key={y} value={y}>{y}</option>)}
+          </select>
+        </div>
+      </Card>
 
-      {/* Table */}
-      <div className="overflow-x-auto border rounded-2xl dark:border-gray-800">
-        <table className="min-w-full text-sm">
-          <thead className="bg-gray-50 dark:bg-gray-900">
+      <div className="rounded-2xl border dark:border-gray-800 overflow-x-auto">
+        <table className="w-full min-w-[64rem] table-fixed border-collapse">
+          <colgroup>
+            <col className="w-[38%]" />
+            <col className="w-[15%]" />
+            <col className="w-[12%]" />
+            <col className="w-[15%]" />
+            <col className="w-[20%]" />
+          </colgroup>
+          <thead className="text-left">
             <tr>
-              <th className="text-left p-3">Title & Program</th>
-              <th className="text-left p-3">Period</th>
-              <th className="text-left p-3">Type</th>
-              <th className="text-left p-3">Grant No.</th>
-              <th className="text-right p-3">{amountHeader}</th>
-              <th className="text-left p-3">Location</th>
+              <th className="sticky top-0 p-3 bg-gray-50 dark:bg-gray-900 font-medium">Title & Program</th>
+              <th className="sticky top-0 p-3 bg-gray-50 dark:bg-gray-900 font-medium">Period</th>
+              <th className="sticky top-0 p-3 bg-gray-50 dark:bg-gray-900 font-medium">Type</th>
+              <th className="sticky top-0 p-3 bg-gray-50 dark:bg-gray-900 font-medium text-right">{`Amount (${currency})`}</th>
+              <th className="sticky top-0 p-3 bg-gray-50 dark:bg-gray-900 font-medium">Organization</th>
             </tr>
           </thead>
-          <tbody>
-            {rows.map((d, i) => (
-              <tr key={`${d.grant_number ?? d.title}-${i}`} className="border-t dark:border-gray-800 align-top">
-                <td className="p-3">
-                  <div className="font-medium">{d.title}</div>
-                  {d.program && <div className="text-gray-600 dark:text-gray-400">{d.program}</div>}
-                  {d.subtype && <div className="text-xs text-gray-500">{d.subtype}</div>}
+          <tbody className="divide-y dark:divide-gray-800">
+            {rows.map((d) => (
+              <tr key={d.grant_number || d.title} className="hover:bg-brand-muted/40 dark:hover:bg-gray-800/50 transition-colors">
+                <td className="p-3 align-top">
+                  <div className="font-semibold">{d.title}</div>
+                  <div className="text-gray-600 dark:text-gray-400">{d.program}</div>
                 </td>
-                <td className="p-3 whitespace-nowrap">
-                  {d.period_start} → {d.period_end}
+                <td className="p-3 align-top whitespace-nowrap">{d.period_start} → {d.period_end}</td>
+                <td className="p-3 align-top"><TypeBadge type={d.type} /></td>
+                <td className="p-3 align-top font-mono text-right">
+                  {/* [STEP 2] Pass the live rate to the conversion function */}
+                  {formatMoney(convertFromCNY(d.amount_cny ?? 0, currency, usdPerCnyRate), currency)}
                 </td>
-                <td className="p-3 whitespace-nowrap">{d.type}</td>
-                <td className="p-3 whitespace-nowrap">{d.grant_number || "—"}</td>
-                <td className="p-3 text-right whitespace-nowrap">{renderAmount(d.amount_cny)}</td>
-                <td className="p-3">
-                  <div>{d.organization || "—"}</div>
-                  {d.location && <div className="text-gray-600 dark:text-gray-400">{d.location}</div>}
-                </td>
+                <td className="p-3 align-top">{d.organization}</td>
               </tr>
             ))}
-            {rows.length === 0 && (
-              <tr>
-                <td colSpan={6} className="p-6 text-center text-gray-500">
-                  No results match your filters.
-                </td>
-              </tr>
-            )}
           </tbody>
         </table>
+        {rows.length === 0 && <div className="py-12 text-center text-gray-500">No funding entries match your criteria.</div>}
       </div>
 
-      {/* Pagination controls */}
       <Pagination
         className="justify-center"
-        page={page}
-        totalPages={totalPages}
-        onPageChange={setPage}
+        page={page} totalPages={totalPages}
+        onPageChange={(p) => {
+          setPage(p);
+          updateParams({ page: p });
+        }}
       />
-
-      {/* Note */}
-      <p className="text-xs text-gray-500">
-        Amounts shown in your selected currency; some projects may not disclose amounts.
-      </p>
     </div>
+  );
+}
+
+function TypeBadge({ type }: { type: "Grant" | "Contract" }) {
+  const isGrant = type === "Grant";
+  const Icon = isGrant ? Award : Building;
+  const theme = isGrant 
+    ? "border-emerald-400 bg-emerald-100 text-emerald-800 dark:bg-emerald-900/30 dark:border-emerald-700 dark:text-emerald-300"
+    : "border-sky-400 bg-sky-100 text-sky-800 dark:bg-sky-900/30 dark:border-sky-700 dark:text-sky-300";
+
+  return (
+    <span className={`inline-flex items-center gap-1.5 rounded-full border px-2 py-0.5 text-xs font-medium ${theme}`}>
+      <Icon className="h-3.5 w-3.5" />
+      {type}
+    </span>
   );
 }

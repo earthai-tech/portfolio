@@ -13,6 +13,7 @@
     "authors": "Liu, R.; Jiang, S.; Ou, J.; Kouadio, K. L.*; Xiong, B.",
     "venue": "Journal of Environmental Management",
     "year": 2024,
+    "featured": true,
     "doi": "10.1016/j.jenvman.2024.122130",
     "url": "https://doi.org/10.1016/j.jenvman.2024.122130",
     "tags": ["anomaly detection", "landfill", "environmental monitoring", "AI"]
@@ -24,6 +25,7 @@
     "year": 2024,
     "doi": "10.1190/geo2023-0332.1",
     "url": "https://doi.org/10.1190/geo2023-0332.1",
+    "featured": true,
     "tags": ["sewage", "hydrogeology", "geophysics", "case study"]
   },
   {
@@ -91,15 +93,6 @@
     "tags": ["SVM", "groundwater", "geo-electrical"]
   },
   {
-    "title": "A mixture learning strategy for predicting aquifers permeability coefficient k",
-    "authors": "Kouadio, K. L.; Liu, J.; Liu, R.",
-    "venue": "Engineering Geology (preprint)",
-    "year": 2023,
-    "doi": "10.2139/ssrn.4326365",
-    "url": "https://dx.doi.org/10.2139/ssrn.4326365",
-    "tags": ["preprint", "groundwater", "permeability", "ML"]
-  },
-  {
     "title": "Two-dimensional inversion of CSAMT data and three-dimensional geological mapping for groundwater exploration in Tongkeng Area, Hunan Province, China",
     "authors": "Kouadio, K. L.; Xu, Y.; Liu, C.; Boukhalfa, Z.",
     "venue": "Journal of Applied Geophysics",
@@ -131,9 +124,8 @@
     "authors": "Kouadio, K. L.",
     "venue": "Zenodo (Technical Report)",
     "year": 2025,
-    "doi": "10.5281/zenodo.17051183",
-    "url": "https://doi.org/10.5281/zenodo.17051183",
-    "featured": true,
+    "doi": "10.5281/zenodo.17051182",
+    "url": "https://doi.org/10.5281/zenodo.17051182",
     "tags": ["uncertainty", "visualization", "diagnostics"]
   },
   {
@@ -142,8 +134,46 @@
     "venue": "Preprint — IEEE TPAMI submission",
     "year": 2025,
     "doi": "10.22541/au.175390529.91420978.v1",
-    "url": "https://doi.org/10.22541/au.175390529.91420978/v1",
+    "url": "https://authorea.com/users/643438/articles/711823-xtft-a-next-generation-temporal-fusion-transformer-for-uncertainty-rich-time-series-forecasting",
     "featured": true,
     "tags": ["transformers", "uncertainty", "time series"]
-  }
+  },
+  {
+    "title": "Adaptive Hammerstein- Wiener Model for Intelligent Networks",
+    "authors": "Kouadio, K. L.; Bizimana, P. C.",
+    "venue": "2024 International Conference on Intelligent Computing and Next Generation Networks (ICNGN)",
+    "year": 2024,
+    "doi": "10.1109/ICNGN63705.2024.10871420",
+    "url": "https://doi.org/10.1109/ICNGN63705.2024.10871420",
+    "tags": ["Adaptation models", "Stability analysis", "Real-time systems"]
+  },   
+  {
+  "title": "k-diagram: Rethinking Forecasting Uncertainty via Polar-Based Visualization",
+  "authors": "Kouadio, K. L.",
+  "venue": "In preparation — Journal of Open Source Software (JOSS)",
+  "year": 2025,
+  "url": "https://github.com/earthai-tech/k-diagram",
+  "tags": ["uncertainty", "visualization", "k-diagram", "JOSS", "open source"]
+},
+{
+  "title": "Forecasting Urban Land Subsidence in the Era of Rapid Urbanization and Climate Stress",
+  "authors": "Kouadio, K. L.; Liu, R.; Jiang, S.; Liu, J.; Kouamelan, S.; Liu, W.; Qing, Z.; Zheng, Z.",
+  "venue": "Submitted — Nature Communications",
+  "year": 2025,
+  "tags": ["subsidence", "climate", "urbanization", "forecasting"]
+},
+{
+  "title": "CAS: Cluster-Aware Scoring for Probabilistic Forecasts",
+  "authors": "Kouadio, K. L.; Liu, R.",
+  "venue": "Submitted — International Journal of Forecasting",
+  "year": 2025,
+  "tags": ["uncertainty", "probabilistic forecasting", "evaluation", "metrics"]
+},
+{
+  "title": "A Diagnostic Framework for Spatiotemporal Forecast Uncertainty",
+  "authors": "Kouadio, K. L.; Liu, R.; Loukou, K. G. H.; Liu, W.; Qing, Z.; Liu, Z.",
+  "venue": "Submitted — Environmental Modelling & Software",
+  "year": 2025,
+  "tags": ["uncertainty", "spatiotemporal", "diagnostics", "environmental modelling"]
+}
 ]

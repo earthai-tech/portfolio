@@ -1,13 +1,16 @@
 export type Currency = "CNY" | "USD";
 
-export const RATE = {
-  // Edit when needed (reference date only for your note)
-  updated: "2025-09-30",
-  usdPerCny: 0.14, // ≈ 1 CNY = 0.14 USD
+export const FALLBACK_RATE = {
+  updated: "2025-10-02",
+  usdPerCny: 0.14,
 };
 
-export function convertFromCNY(amountCNY: number, to: Currency): number {
-  return to === "CNY" ? amountCNY : amountCNY * RATE.usdPerCny;
+// The function now requires the live rate to be passed in
+export function convertFromCNY(amountCNY: number, to: Currency, usdPerCnyRate: number): number {
+  if (to === "CNY") {
+    return amountCNY;
+  }
+  return amountCNY * usdPerCnyRate;
 }
 
 export function formatMoney(amount: number | null | undefined, currency: Currency) {

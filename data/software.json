@@ -1,36 +1,100 @@
 [
   {
     "name": "FusionLab-learn / XTFT",
-    "description": "Temporal Fusion Transformer variants for calibrated, uncertainty\u2011aware forecasting with physics\u2011aware hooks.",
+    "description": "Flexible framework for next-gen time-series forecasting with Temporal Fusion Transformer (TFT) and XTFT variants; calibrated, uncertainty-aware, and physics-aware hooks (TensorFlow/Keras).",
+    "license": "BSD-3-Clause",
+    "pypi_status": "available",
+    "docs_status": "complete",
+    "tags": ["time-series", "transformers", "uncertainty", "physics-aware"],
     "links": [
-      {
-        "label": "GitHub",
-        "href": "https://github.com/earthai-tech/fusionlab-learn"
-      }
+      { "label": "GitHub", "href": "https://github.com/earthai-tech/fusionlab-learn" },
+      { "label": "Docs", "href": "https://fusion-lab.readthedocs.io/" },
+      { "label": "PyPI", "href": "https://pypi.org/project/fusionlab-learn/" }
     ]
   },
   {
     "name": "k-diagram",
-    "description": "Polar diagnostics package for forecast uncertainty (coverage, calibration, severity).",
+    "description": "Polar diagnostics package for forecast uncertainty—coverage, calibration, and severity (CAS)—to make probabilistic models interpretable.",
+    "license": "Apache-2.0",
+    "pypi_status": "available",
+    "docs_status": "complete",
+    "tags": ["uncertainty", "evaluation", "visualization"],
     "links": [
-      {
-        "label": "GitHub",
-        "href": "https://github.com/earthai-tech/k-diagram"
-      },
-      {
-        "label": "Docs",
-        "href": "https://k-diagram.readthedocs.io/en/latest/"
-      }
+      { "label": "GitHub", "href": "https://github.com/earthai-tech/k-diagram" },
+      { "label": "Docs", "href": "https://k-diagram.readthedocs.io/en/latest/" },
+      { "label": "PyPI", "href": "https://pypi.org/project/k-diagram/" }
+    ]
+  },
+  {
+    "name": "hwm — Adaptive Hammerstein-Wiener Modeling Toolkit",
+    "description": "Toolkit for adaptive Hammerstein-Wiener system modeling (nonlinear + linear blocks) with a scikit-learn-friendly API for regression/classification/TS.",
+    "license": "BSD-3-Clause",
+    "pypi_status": "available",
+    "docs_status": "complete",
+    "tags": ["system-identification", "time-series", "scikit-learn"],
+    "links": [
+      { "label": "Docs", "href": "https://hwm.readthedocs.io" },
+      { "label": "PyPI", "href": "https://pypi.org/project/hwm/" },
+      { "label": "GitHub", "href": "https://github.com/earthai-tech/hwm" }
+    ]
+  },
+  {
+    "name": "gofast — AIO Machine Learning Package",
+    "description": "All-in-one ML utilities designed to streamline data science workflows—fast helpers for preprocessing, modeling, and evaluation.",
+    "license": "BSD-3-Clause",
+    "pypi_status": "not-available",
+    "docs_status": "in-development",
+    "tags": ["ml-utilities", "productivity"],
+    "links": [
+      { "label": "GitHub", "href": "https://github.com/earthai-tech/gofast" }
+    ]
+  },
+  {
+    "name": "watex — Machine Learning for Water Exploration",
+    "description": "Python library for groundwater exploration: integrates DC resistivity (ERP/VES), EM, geology, and ML for siting wells, predicting yields, and restoring noisy EM signals.",
+    "license": "BSD-3-Clause",
+    "pypi_status": "available",
+    "docs_status": "complete",
+    "tags": ["groundwater", "geophysics", "machine-learning"],
+    "links": [
+      { "label": "Docs", "href": "https://watex.readthedocs.io/" },
+      { "label": "PyPI", "href": "https://pypi.org/project/watex/" },
+      { "label": "GitHub", "href": "https://github.com/earthai-tech/watex" }
+    ]
+  },
+  {
+    "name": "hydro-learn — Intelligent Solver for Hydrogeology",
+    "description": "Methods and workflows to reduce data-collection costs for K, guide drilling locations, and predict well water content using ML.",
+    "license": "Apache-2.0",
+    "pypi_status": "not-available",
+    "docs_status": "in-development",
+    "tags": ["hydrogeology", "machine-learning"],
+    "links": [
+      { "label": "GitHub", "href": "https://github.com/earthai-tech/hydro-learn" }
     ]
   },
   {
     "name": "pyCSAMT",
-    "description": "Open electromagnetic toolbox for AFMT/CSAMT processing and visualization.",
+    "description": "Python toolbox for AMT/CSAMT: end-to-end processing, SEG-EDI/Zonge compatibility, and 2D/3D geophysical inversion workflows.",
+    "license": "GPL-3.0",
+    "pypi_status": "available",
+    "docs_status": "complete",
+    "tags": ["AMT", "CSAMT", "electromagnetics", "groundwater"],
     "links": [
-      {
-        "label": "GitHub",
-        "href": "https://github.com/WEgeophysics/pyCSAMT"
-      }
+      { "label": "GitHub", "href": "https://github.com/earthai-tech/pyCSAMT" },
+      { "label": "Docs", "href": "https://pycsamt.readthedocs.io" }
+    ]
+  },
+  {
+    "name": "kalfeat — Fast Detection of Geo-Electrical Features",
+    "description": "ML pipeline to predict groundwater flow rate from geology and DC resistivity (ERP/VES); automates optimal drilling-site selection and reduces dry-well risk.",
+    "license": "MIT",
+    "pypi_status": "in-progress",
+    "docs_status": "complete",
+    "tags": ["groundwater", "feature-engineering", "DC-resistivity"],
+    "links": [
+      { "label": "Docs", "href": "https://kalfeat.readthedocs.io" },
+      { "label": "GitHub", "href": "https://github.com/earthai-tech/kalfeat" }
     ]
   }
 ]

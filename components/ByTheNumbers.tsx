@@ -5,7 +5,8 @@ import { useCurrency } from "@/components/CurrencyProvider";
 import { convertFromCNY, formatMoney } from "@/utils/currency";
 
 export default function ByTheNumbers() {
-  const { currency } = useCurrency();
+  // [MODIFIED] Get the live exchange rate from the hook
+  const { currency, usdPerCnyRate } = useCurrency();
 
   const { total, grants, contracts } = useMemo(() => {
     const items = data as Array<{ type: "Contract" | "Grant"; amount_cny?: number | null }>;
@@ -30,9 +31,10 @@ export default function ByTheNumbers() {
     };
   }, []);
 
-  const totalFmt = formatMoney(convertFromCNY(total.amountCny, currency), currency);
-  const grantsFmt = formatMoney(convertFromCNY(grants.amountCny, currency), currency);
-  const contractsFmt = formatMoney(convertFromCNY(contracts.amountCny, currency), currency);
+  // [MODIFIED] Pass the live rate to the conversion functions
+  const totalFmt = formatMoney(convertFromCNY(total.amountCny, currency, usdPerCnyRate), currency);
+  const grantsFmt = formatMoney(convertFromCNY(grants.amountCny, currency, usdPerCnyRate), currency);
+  const contractsFmt = formatMoney(convertFromCNY(contracts.amountCny, currency, usdPerCnyRate), currency);
 
   return (
     <section className="space-y-4">

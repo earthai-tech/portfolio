@@ -1,24 +1,65 @@
+"use client";
+
+import { useState } from "react";
 import { PageHero } from "@/components/PageHero";
 import { Card } from "@/components/Card";
-import { SocialLinks } from "@/components/SocialLinks";        
+import { SocialLinks } from "@/components/SocialLinks";
+import ResearchActivityChart from "@/components/ResearchActivityChart";
+import StatsStrip from "@/components/StatsStrip";
+
 import Link from "next/link";
 import Image from "next/image";
+import {
+  Rocket,
+  BookOpenText,
+  BarChartHorizontal,
+  Bot,
+  FlaskConical,
+  ExternalLink, // [MODIFIED] Import new icon
+  ArrowRight
+} from "lucide-react";
+
+// [MODIFIED] Updated the list of featured publications
+const featuredPublications = [
+  {
+    title: "XTFT: A Next-Generation Temporal Fusion Transformer for Uncertainty-Rich Time Series Forecasting",
+    journal: "IEEE TPAMI (Preprint)",
+    year: 2025,
+    href: "/research/xai-pinns",
+    externalUrl: "https://authorea.com/users/643438/articles/711823-xtft-a-next-generation-temporal-fusion-transformer-for-uncertainty-rich-time-series-forecasting"
+  },
+  {
+    title: "An Integrated Approach for sewage diversion: Case of Huayuan mine, Hunan Province, China",
+    journal: "Geophysics",
+    year: 2024,
+    href: "/research/groundwater",
+    externalUrl: "https://chooser.crossref.org/?doi=10.1190%2Fgeo2023-0332.1"
+  },
+  // {
+  //  title: "Machine learning-based techniques for land subsidence simulation in an urban area",
+  //  journal: "Journal of Environmental Management",
+  //  year: 2024,
+  //  href: "/research/land-subsidence",
+  //  externalUrl: "https://doi.org/10.1016/j.jenvman.2024.120078"
+  //}
+];
 
 export default function HomePage() {
+  const [hoveredPoint, setHoveredPoint] = useState<{ label: string; value: string } | null>(null);
+
   return (
-    <div className="space-y-10">
+    <div className="space-y-16">
       <PageHero
-        title="Computational geophysicist advancing physics-informed AI for subsurface forecasting, groundwater, and geohazard risk"
-        subtitle="Exploring the Earth with open-source ML, uncertainty diagnostics, and geophysics to turn data into actionable resilience."
+        title="Computational Geophysicist"
+        subtitle="Hi, I'm a researcher passionate about decoding Earth's subsurface. My work combines physics-informed AI and open-source software to tackle critical environmental challenges, from predicting geohazards to sustainably managing our planet's resources."
         aside={
-          // Outer gradient ring → inner white ring → circular photo
-          <div className="p-[3px] rounded-full bg-gradient-to-tr from-brand to-rose-500 shadow-xl">
-            <div className="rounded-full bg-white p-1">
+          <div className="p-1 rounded-full bg-gradient-to-tr from-brand to-rose-500 shadow-xl">
+            <div className="rounded-full bg-white dark:bg-gray-900 p-1">
               <Image
                 src="/laurent.jpg"
                 alt="Laurent Kouadio"
-                width={260}
-                height={260}
+                width={220}
+                height={220}
                 className="rounded-full object-cover shadow-md"
                 priority
               />
@@ -26,52 +67,131 @@ export default function HomePage() {
           </div>
         }
       >
-        <div className="flex flex-wrap gap-3">
-          <Link href="/about" className="badge">About</Link>
-          <Link href="/software" className="badge">Software</Link>
-          <Link href="/publications" className="badge">Publications</Link>
-          <Link href="/research" className="badge">Research</Link>
-          <Link href="/cv" className="badge">CV</Link>
-          <Link href="/contact" className="badge">Contact</Link>
+        <div className="flex flex-wrap gap-x-6 gap-y-4 items-center mt-8">
+          <Link
+            href="/contact"
+            className="inline-flex items-center justify-center gap-2 rounded-lg bg-brand px-6 py-3 font-semibold text-white shadow-sm transition-colors hover:bg-brand/90 focus:ring-4 focus:ring-brand/50"
+          >
+            <Rocket className="h-4 w-4" />
+            Get in Touch
+          </Link>
+          <SocialLinks />
         </div>
-        <SocialLinks className="mt-4" />
       </PageHero>
-      
+
+      <StatsStrip />
+
       <section>
-        <h2 className="text-xl font-semibold mb-4">Highlights</h2>
-        <div className="grid md:grid-cols-3 gap-6">
-          <Card title="XTFT (Next-Gen TFT)">
-            <p>
-              Temporal Fusion Transformer variant for uncertainty-rich
-              forecasting with physics-aware hooks and calibrated outputs.
-            </p>
-            <div className="mt-3 flex gap-2">
-              <a className="badge" href="https://github.com/earthai-tech/fusionlab-learn" target="_blank">GitHub</a>
-              <Link className="badge" href="/publications">Papers</Link>
+        <div className="mb-6 flex items-center justify-between">
+            <h2 className="flex items-center text-2xl font-bold text-gray-900 dark:text-gray-100">
+              <BarChartHorizontal className="mr-3 h-6 w-6 text-brand" />
+              Research Activity
+            </h2>
+            <div className="hidden min-h-[20px] text-sm text-gray-500 dark:text-gray-400 md:block">
+              {hoveredPoint ?
+                <span className="font-semibold">{`${hoveredPoint.label}: ${hoveredPoint.value}`}</span> :
+                <span>Hover over the chart for details</span>
+              }
             </div>
-          </Card>
+        </div>
+        <Card>
+          <ResearchActivityChart variant="full" startYear={2020} setHoveredPoint={setHoveredPoint} />
+        </Card>
+      </section>
 
-          <Card title="k-diagram">
-            <p>
-              Polar diagnostics for uncertainty—coverage, reliability, severity (CAS)—
-              to make probabilistic forecasts interpretable at scale.
+      {/* Featured Projects */}
+      <section>
+        <h2 className="mb-6 flex items-center text-2xl font-bold text-gray-900 dark:text-gray-100">
+          <Bot className="mr-3 h-6 w-6 text-brand" />
+          Featured Projects & Software
+        </h2>
+        <div className="grid gap-6 md:grid-cols-3">
+          <Card title="XTFT: Next-Gen Forecasting">
+            <p className="flex-grow text-sm text-gray-600 dark:text-gray-400">
+              An enhanced Temporal Fusion Transformer for uncertainty-rich forecasting, featuring physics-aware hooks and calibrated outputs.
             </p>
-            <div className="mt-3 flex gap-2">
-              <a className="badge" href="https://github.com/earthai-tech/k-diagram" target="_blank">GitHub</a>
-              <a className="badge" href="https://k-diagram.readthedocs.io/en/latest/" target="_blank">Docs</a>
+            <div className="mt-4 flex gap-2">
+              <a className="badge" href="https://github.com/earthai-tech/fusionlab-learn" target="_blank" rel="noopener noreferrer">GitHub</a>
+              <Link className="badge" href="/research/xai-pinns">Learn More</Link>
             </div>
           </Card>
+          <Card title="k-diagram: Visual Analytics">
+            <p className="flex-grow text-sm text-gray-600 dark:text-gray-400">
+              A Python library for polar diagnostics (coverage, reliability, CAS) to make probabilistic forecasts interpretable at scale.
+            </p>
+            <div className="mt-4 flex gap-2">
+              <a className="badge" href="https://github.com/earthai-tech/k-diagram" target="_blank" rel="noopener noreferrer">GitHub</a>
+              <a className="badge" href="https://k-diagram.readthedocs.io" target="_blank" rel="noopener noreferrer">Docs</a>
+            </div>
+          </Card>
+          <Card title="pyCSAMT: Open EM Toolbox">
+            <p className="flex-grow text-sm text-gray-600 dark:text-gray-400">
+              Open-source tools for AMT/CSAMT processing, Zonge compatibility, SEG-EDI integration, and modern plotting.
+            </p>
+            <div className="mt-4 flex gap-2">
+              <a className="badge" href="https://github.com/earthai-tech/pyCSAMT" target="_blank" rel="noopener noreferrer">GitHub</a>
+              <Link className="badge" href="/research/groundwater">Use Cases</Link>
+            </div>
+          </Card>
+        </div>
+      </section>
 
-          <Card title="pyCSAMT">
-            <p>
-              Open EM toolbox for AMT/CSAMT: processing pipelines, Zonge compatibility,
-              SEG-EDI integration, and modern plotting (v2).
-            </p>
-            <div className="mt-3 flex gap-2">
-              <a className="badge" href="https://github.com/earthai-tech/pyCSAMT" target="_blank">GitHub</a>
-              <Link className="badge" href="/research">Use cases</Link>
-            </div>
-          </Card>
+      {/* Featured Publications */}
+      <section>
+        <h2 className="mb-6 flex items-center text-2xl font-bold text-gray-900 dark:text-gray-100">
+          <BookOpenText className="mr-3 h-6 w-6 text-brand" />
+          Featured Publications
+        </h2>
+        <div className="space-y-6">
+          {featuredPublications.map((pub) => (
+            <Card key={pub.title}>
+              <div className="flex flex-col justify-between gap-4 md:flex-row md:items-center">
+                <div>
+                  <h3 className="text-lg font-semibold text-gray-800 dark:text-gray-200">{pub.title}</h3>
+                  <p className="mt-1 text-sm text-gray-500 dark:text-gray-400">{pub.journal}, {pub.year}</p>
+                </div>
+                <div className="mt-4 flex flex-shrink-0 gap-4 md:mt-0">
+                  <Link href={pub.href} className="inline-flex items-center text-sm font-medium text-brand hover:underline">
+                    Read More <ArrowRight className="ml-1 h-4 w-4" />
+                  </Link>
+                  {/* [MODIFIED] Changed PDF link to a general "View Paper" external link */}
+                  {pub.externalUrl && (
+                    <a
+                      href={pub.externalUrl}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="inline-flex items-center text-sm font-medium text-gray-600 hover:text-brand dark:text-gray-400 dark:hover:text-brand-light"
+                    >
+                      <ExternalLink className="mr-1.5 h-4 w-4" />
+                      View Paper
+                    </a>
+                  )}
+                </div>
+              </div>
+            </Card>
+          ))}
+        </div>
+      </section>
+      
+      {/* Explore My Work (CTA) */}
+      <section>
+        <h2 className="mb-6 flex items-center text-2xl font-bold text-gray-900 dark:text-gray-100">
+          <FlaskConical className="mr-3 h-6 w-6 text-brand" />
+          Explore My Work
+        </h2>
+        <div className="grid grid-cols-2 gap-4 md:grid-cols-4">
+            <Link href="/about" className="group rounded-lg bg-gray-50 p-6 text-center transition-all duration-200 hover:-translate-y-1 hover:shadow-lg dark:bg-gray-800/50 dark:hover:bg-gray-800">
+                <span className="font-semibold text-gray-800 dark:text-gray-200">About Me</span>
+            </Link>
+            <Link href="/publications" className="group rounded-lg bg-gray-50 p-6 text-center transition-all duration-200 hover:-translate-y-1 hover:shadow-lg dark:bg-gray-800/50 dark:hover:bg-gray-800">
+                <span className="font-semibold text-gray-800 dark:text-gray-200">All Publications</span>
+            </Link>
+            <Link href="/research" className="group rounded-lg bg-gray-50 p-6 text-center transition-all duration-200 hover:-translate-y-1 hover:shadow-lg dark:bg-gray-800/50 dark:hover:bg-gray-800">
+                 <span className="font-semibold text-gray-800 dark:text-gray-200">All Research</span>
+            </Link>
+            <Link href="/cv" className="group rounded-lg bg-gray-50 p-6 text-center transition-all duration-200 hover:-translate-y-1 hover:shadow-lg dark:bg-gray-800/50 dark:hover:bg-gray-800">
+                 <span className="font-semibold text-gray-800 dark:text-gray-200">Download CV</span>
+            </Link>
         </div>
       </section>
     </div>
