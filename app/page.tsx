@@ -164,16 +164,20 @@ export default function HomePage() {
           }
         >
           <div className="space-y-6">
+            {/* [FIXED] Mapped over publications and passed `pub.title` to the Card's `title` prop */}
             {featuredPublications.map((pub) => (
-              <Card key={pub.title} className="hover:shadow-sm hover:translate-y-0 hover:border-gray-100 dark:hover:border-gray-800">
+              <Card
+                key={pub.title}
+                title={pub.title}
+                className="hover:shadow-sm hover:translate-y-0 hover:border-gray-100 dark:hover:border-gray-800"
+              >
                 <div className="flex flex-col justify-between gap-4 md:flex-row md:items-center">
                   <div>
-                    <h3 className="text-lg font-semibold text-gray-800 dark:text-gray-200">{pub.title}</h3>
                     <p className="mt-1 text-sm text-gray-500 dark:text-gray-400">{pub.journal}, {pub.year}</p>
                   </div>
                   <div className="mt-4 flex flex-shrink-0 gap-4 md:mt-0">
                     <Link href={pub.href} className="inline-flex items-center text-sm font-medium text-brand hover:underline">
-                      Read More <ArrowRight className="ml-1 h-4 w-4" />
+                      Read More <ArrowRight className="ml-1 h-4" />
                     </Link>
                     {pub.externalUrl && (
                       <a href={pub.externalUrl} target="_blank" rel="noopener noreferrer" className="inline-flex items-center text-sm font-medium text-gray-600 hover:text-brand dark:text-gray-400 dark:hover:text-brand-light">
