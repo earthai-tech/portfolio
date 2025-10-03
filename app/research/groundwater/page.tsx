@@ -13,7 +13,7 @@ export default function Page() {
         subtitle="AI-assisted hydrogeophysics for siting productive wells and estimating aquifer properties."
       />
 
-      {/* --- [NEW] Key Achievements Section --- */}
+      {/* ---  Key Achievements Section --- */}
       <section className="grid grid-cols-2 md:grid-cols-4 gap-4 text-center">
         <StatItem value=">90%" label="Prediction Accuracy" description="Achieved with ensemble models" />
         <StatItem value="30%" label="Sensitivity Increase" description="In leak detection with MADF" />
@@ -21,7 +21,7 @@ export default function Page() {
         <StatItem value="2+" label="Open-Source Tools" description="Supporting the community" />
       </section>
 
-      {/* --- [REDESIGNED] Smart Wells Narrative --- */}
+      {/* --- Smart Wells Narrative --- */}
       <section className="grid md:grid-cols-2 gap-8 md:gap-12 items-center">
         <div className="space-y-4">
           <h2 className="text-3xl font-bold">Smart Wells, Secure Water</h2>
@@ -40,12 +40,12 @@ export default function Page() {
           </div>
         </div>
         <div>
-          {/* NOTE: Replace this with your own image */}
+          {/* Replace this with your own image */}
           <Image src="/images/groundwater-1.jpg" alt="Geophysical survey in an arid landscape" width={600} height={400} className="rounded-lg shadow-md" />
         </div>
       </section>
 
-      {/* --- [REDESIGNED] Safeguarding Water Narrative --- */}
+      {/* --- Safeguarding Water Narrative --- */}
       <section className="grid md:grid-cols-2 gap-8 md:gap-12 items-center">
         <div className="md:order-last space-y-4">
           <h2 className="text-3xl font-bold">Environmental Geophysics</h2>
@@ -57,12 +57,12 @@ export default function Page() {
           </blockquote>
         </div>
         <div>
-          {/* NOTE: Replace this with your own image */}
+
           <Image src="/images/groundwater-2.jpg" alt="Water quality testing in a lab" width={600} height={400} className="rounded-lg shadow-md" />
         </div>
       </section>
 
-      <Card>
+      <Card className="hover:shadow-sm hover:translate-y-0 hover:border-gray-100 dark:hover:border-gray-800">
         <h2 className="text-2xl font-bold mb-4">Key Outcomes</h2>
         <ul className="grid sm:grid-cols-2 gap-x-8 gap-y-4">
           <OutcomeItem><strong>Reduce dry wells</strong> with predictive models from geo-electrical features.</OutcomeItem>
@@ -72,7 +72,7 @@ export default function Page() {
         </ul>
       </Card>
       
-      <Card>
+      <Card className="hover:shadow-sm hover:translate-y-0 hover:border-gray-100 dark:hover:border-gray-800">
         <h2 className="text-2xl font-bold mb-4">Key Outputs & Tooling</h2>
         <div className="columns-1 md:columns-2 lg:columns-3 gap-4 space-y-4">
             <OutputLink href="https://doi.org/10.1029/2021WR031623" text="Groundwater flow rate via SVM (WRR)" />

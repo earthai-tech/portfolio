@@ -2,7 +2,7 @@ import Link from "next/link";
 import { ReactNode } from "react";
 
 type CardProps = {
-  title: string;
+  title?: string;
   children?: ReactNode;
   icon?: ReactNode;
   href?: string;        // when present, the entire card is clickable
