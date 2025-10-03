@@ -83,12 +83,14 @@ export default function CVPage() {
 
 // --- Redesigned Document Card ---
 function DocumentCard({ docKey, title, href, stats, onEvent, color }: any) {
+  const icon = docKey === 'cv' ? <FileText className="h-6 w-6 text-gray-400"/> : <FolderKanban className="h-6 w-6 text-gray-400"/>;
+
   return (
-    <Card className="flex flex-col text-center">
-       <div className="flex items-center justify-center gap-3">
-        {docKey === 'cv' ? <FileText className="h-6 w-6 text-gray-400"/> : <FolderKanban className="h-6 w-6 text-gray-400"/>}
-        <h3 className="text-xl font-bold">{title} (PDF)</h3>
-      </div>
+    <Card
+      title={`${title} (PDF)`}
+      icon={icon}
+      className="flex flex-col text-center hover:shadow-sm hover:translate-y-0 hover:border-gray-100 dark:hover:border-gray-800"
+    >
       <div className="my-6 grid grid-cols-2 gap-4 divide-x dark:divide-gray-800">
         <div>
           <div className="text-3xl font-bold text-brand">{stats.views.toLocaleString()}</div>
@@ -124,7 +126,7 @@ function StatisticsSection({ events }: { events: Ev[] }) {
           <TabButton isActive={activeTab === 'monthly'} onClick={() => setActiveTab('monthly')}>Monthly Trends</TabButton>
         </div>
       </div>
-      <Card>
+      <Card title="Statistics Overview" className="hover:shadow-sm hover:translate-y-0 hover:border-gray-100 dark:hover:border-gray-800">
         {activeTab === 'daily' ? <ActivityCalendar events={events} /> : <MonthlyBarChart events={events} />}
       </Card>
     </section>
@@ -137,6 +139,7 @@ function TabButton({ children, isActive, onClick }: any) {
     </button>
   );
 }
+
 
 // --- Activity Calendar Chart (GitHub Style) ---
 function ActivityCalendar({ events }: { events: Ev[] }) {
