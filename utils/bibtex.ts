@@ -6,6 +6,7 @@ type Pub = {
   venue: string;
   year: number;
   doi?: string;
+  url?: string;
 };
 
 // A simple function to format author names for BibTeX (e.g., "Kouadio, K. L.; Liu, J." -> "Kouadio, K. L. and Liu, J.")

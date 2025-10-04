@@ -1,6 +1,7 @@
 import { PageHero } from "@/components/PageHero";
 import FundingTable from "@/components/FundingTable";
-import FundingTimelineChart from "@/components/FundingTimelineChart"; // Import the new chart
+import FundingTimelineChart from "@/components/FundingTimelineChart";
+import { Suspense } from "react"; 
 
 export default function FundingPage() {
   return (
@@ -10,10 +11,12 @@ export default function FundingPage() {
         subtitle="Selected grants and industrial contracts across groundwater, EM geophysics, geothermal, and hazard mitigation."
       />
       
-      {/* Add the new timeline chart here */}
       <FundingTimelineChart />
 
-      <FundingTable />
+      {/* 2. Wrap the dynamic component in Suspense */}
+      <Suspense fallback={<div>Loading table...</div>}>
+        <FundingTable />
+      </Suspense>
     </div>
   );
 }
