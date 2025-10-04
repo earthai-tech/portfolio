@@ -3,7 +3,7 @@ export const SITE = {
   title: "Computational Geophysicist & AI Researcher",
   description:
     "Physics-informed ML for subsurface, water, and risk. Portfolio of research, software, and publications.",
-  url: "https://your-vercel-url.vercel.app", // replace after first deploy
+  url: "https://www.lkouadio.com",
   locale: "en_US",
   emailPrimary: "lkouao@csu.edu.cn",
   emailAlt: "etanoyau@gmail.com",
