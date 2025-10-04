@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Script from "next/script"; 
 import "./globals.css";
 import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
@@ -29,6 +30,12 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           <main className="container py-10">{children}</main>
           <Footer />
         </CurrencyProvider>
+
+        {/* This is correct! The Tidio script will load efficiently here. */}
+        <Script
+          src="//code.tidio.co/ktfrlkezpxpcc8ljjlployujg7nspu2h.js"
+          strategy="lazyOnload"
+        />
       </body>
     </html>
   );

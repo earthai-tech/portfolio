@@ -92,7 +92,9 @@ export default function ResearchPage() {
             {hoveredPoint ? <span>{`${hoveredPoint.label}: ${hoveredPoint.value}`}</span> : <span>Hover for details</span>}
           </div>
         </div>
-        <div className="card p-2 sm:p-4"><ResearchActivityChart variant="full" startYear={2020} setHoveredPoint={setHoveredPoint} /></div>
+        <div className="card p-2 sm:p-4 hover:shadow-sm hover:translate-y-0 hover:border-gray-100 dark:hover:border-gray-800">
+            <ResearchActivityChart variant="full" startYear={2020} setHoveredPoint={setHoveredPoint} />
+        </div>
       </section>
     </div>
   );
